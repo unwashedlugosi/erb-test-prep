@@ -331,6 +331,20 @@ export default function App() {
   );
 }
 
+// ─── Motivational Messages ───
+const MOTD = [
+  'Every question you practice makes the real test easier.',
+  'You\'re building skills that last a lifetime.',
+  'The best test-takers aren\'t the smartest — they\'re the most prepared.',
+  'Strategy beats raw ability on standardized tests.',
+  'Knowing HOW to take a test is just as important as knowing the material.',
+  'Practice doesn\'t make perfect — it makes prepared.',
+  'You\'ve got this.',
+  'No surprises on test day — that\'s the goal.',
+  'Smart test-takers know when to guess and when to grind.',
+  'Every strategy you learn is a tool in your test-day toolkit.',
+];
+
 // ─── Home Screen ───
 function HomeScreen() {
   const { progress, setScreen, isPracticeUnlocked, sessionSeconds } = useApp();
@@ -347,6 +361,7 @@ function HomeScreen() {
 
   const sessionMin = Math.floor(sessionSeconds / 60);
   const unlocked = isPracticeUnlocked();
+  const [motd] = useState(() => MOTD[Math.floor(Math.random() * MOTD.length)]);
 
   return (
     <div className="screen home-screen">
@@ -377,6 +392,8 @@ function HomeScreen() {
         {sessionMin >= 15 && <span className="session-target">Daily target hit!</span>}
         {sessionMin < 15 && <span className="session-remaining">{15 - sessionMin} min to daily target</span>}
       </div>
+
+      <div className="motd">{motd}</div>
 
       <div className="home-cards">
         <button className="home-card test-smarts-card" onClick={() => setScreen('test-smarts')}>
@@ -677,12 +694,26 @@ function PracticeScreen({ sectionId }) {
   const [questions] = useState(() => shuffleArray([...allQuestions]));
   const [qIndex, setQIndex] = useState(0);
   const [selected, setSelected] = useState(null);
+  const nextBtnRef = useRef(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [streak, setStreakLocal] = useState(0);
   const [sessionScore, setSessionScore] = useState({ total: 0, correct: 0 });
   const [eliminated, setEliminated] = useState([]);
   const [done, setDone] = useState(false);
   const startTime = useRef(Date.now());
+  const showExplanationRef = useRef(false);
+  showExplanationRef.current = showExplanation;
+
+  // Enter key to advance
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.key === 'Enter' && showExplanationRef.current) {
+        nextQuestion();
+      }
+    }
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [qIndex, questions.length]);
 
   if (!section || questions.length === 0) return null;
 
