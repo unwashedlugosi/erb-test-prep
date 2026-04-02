@@ -41,8 +41,9 @@ body {
   max-width: 640px;
   margin: 0 auto;
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: max(80px, env(safe-area-inset-bottom, 20px));
 }
 
 /* ── Screens ── */
@@ -72,6 +73,14 @@ body {
   background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.5px;
 }
 
 .countdown {
@@ -280,6 +289,7 @@ body {
   font-size: 24px;
   font-weight: 800;
   color: var(--text);
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
