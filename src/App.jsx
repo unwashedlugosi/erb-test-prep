@@ -734,11 +734,24 @@ function PracticeScreen({ sectionId }) {
   const showExplanationRef = useRef(false);
   showExplanationRef.current = showExplanation;
 
-  // Enter key to advance
+  // Keyboard shortcuts: Enter to advance, 1-4 to select answer
+  const selectedRef = useRef(null);
+  selectedRef.current = selected;
+  const eliminatedRef = useRef([]);
+  eliminatedRef.current = eliminated;
+  const qRef = useRef(null);
+  qRef.current = questions[qIndex];
+
   useEffect(() => {
     function handleKey(e) {
       if (e.key === 'Enter' && showExplanationRef.current) {
         nextQuestion();
+        return;
+      }
+      // Number keys 1-4 to select answers
+      const num = parseInt(e.key);
+      if (num >= 1 && num <= 4 && selectedRef.current === null && !eliminatedRef.current.includes(num - 1)) {
+        handleSelect(num - 1);
       }
     }
     window.addEventListener('keydown', handleKey);
