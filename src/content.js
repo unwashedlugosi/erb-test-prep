@@ -692,6 +692,63 @@ The people who operated stations risked their own freedom as well. Under the Fug
       },
     ],
   },
+  {
+    id: 'rp5',
+    title: 'The Science of Sleep',
+    text: `Scientists have long known that sleep is essential for good health, but only recently have they begun to understand exactly what happens in the brain while we sleep. Far from being a time when the brain "shuts off," sleep is actually one of the brain's busiest periods.
+
+During sleep, the brain cycles through several stages. The first stage is light sleep, when you can be easily awakened. The second stage is deeper sleep, when your heart rate slows and your body temperature drops. The third stage is the deepest sleep, called slow-wave sleep. This is when the body does most of its physical repair — growing new cells, strengthening the immune system, and releasing growth hormones that are especially important for children and teenagers.
+
+The fourth stage is called REM sleep, which stands for Rapid Eye Movement. During REM sleep, your eyes dart back and forth behind your closed eyelids, and your brain becomes almost as active as when you're awake. This is when most dreaming occurs. Scientists believe REM sleep is crucial for learning and memory — the brain replays experiences from the day and strengthens the neural connections that form memories.
+
+A typical night includes four to six complete cycles through these stages, each lasting about 90 minutes. The proportion of deep sleep is highest in the early part of the night, while REM sleep increases toward morning. This is why the last few hours of sleep are especially important for memory consolidation — and why staying up late to study for a test can actually hurt your performance.`,
+    questions: [
+      {
+        id: 'r17', question: 'According to the passage, what happens during slow-wave sleep?',
+        choices: [
+          'Most dreaming occurs',
+          'The brain replays experiences from the day',
+          'The body repairs itself and releases growth hormones',
+          'The eyes move back and forth rapidly',
+        ],
+        answer: 2,
+        explanation: 'The passage states that during deep slow-wave sleep "the body does most of its physical repair — growing new cells, strengthening the immune system, and releasing growth hormones." Dreaming and eye movement happen during REM sleep.',
+      },
+      {
+        id: 'r18', question: 'Based on the passage, why might staying up late to study hurt test performance?',
+        choices: [
+          'Because studying at night is less effective than studying during the day',
+          'Because you miss the REM sleep that helps consolidate memories',
+          'Because the brain shuts off during sleep and can\'t process information',
+          'Because slow-wave sleep only happens before midnight',
+        ],
+        answer: 1,
+        explanation: 'The passage says REM sleep increases toward morning and is "crucial for learning and memory." Missing those last hours means less memory consolidation. The passage also explicitly says staying up late "can actually hurt your performance."',
+      },
+      {
+        id: 'r19', question: 'What does the word "consolidation" most likely mean in the last paragraph?',
+        choices: [
+          'The process of forgetting unnecessary information',
+          'The process of strengthening and solidifying memories',
+          'The process of dreaming about new experiences',
+          'The process of falling into deeper stages of sleep',
+        ],
+        answer: 1,
+        explanation: 'Context clue: "memory consolidation" comes right after discussing how the brain "strengthens neural connections that form memories." Consolidation means strengthening/solidifying.',
+      },
+      {
+        id: 'r20', question: 'The author says sleep is "one of the brain\'s busiest periods." What purpose does this statement serve?',
+        choices: [
+          'To encourage readers to sleep more',
+          'To correct a common misconception about sleep',
+          'To explain why people dream',
+          'To describe what slow-wave sleep looks like',
+        ],
+        answer: 1,
+        explanation: 'The statement directly contrasts with "the brain shuts off" — correcting the misconception that sleep is inactive time. The author is setting up the key point that sleep is active and important.',
+      },
+    ],
+  },
 ];
 
 // ── WRITING MECHANICS ──
@@ -1097,6 +1154,41 @@ export const QUANT_QUESTIONS = [
     answer: 2,
     explanation: '6 pencils = 6 × $0.25 = $1.50. 2 pens = 2 × $0.75 = $1.50. Equal!',
   },
+  {
+    id: 'q16', type: 'comparison',
+    question: 'Column A: The number of factors of 12\nColumn B: The number of factors of 16',
+    choices: ['Column A is greater', 'Column B is greater', 'They are equal', 'Cannot be determined'],
+    answer: 0,
+    explanation: 'Factors of 12: 1, 2, 3, 4, 6, 12 = 6 factors. Factors of 16: 1, 2, 4, 8, 16 = 5 factors. Column A (6) > Column B (5).',
+  },
+  {
+    id: 'q17', type: 'pattern',
+    question: 'The pattern is: 1, 4, 9, 16, 25, ...\nWhat is the 8th number in this pattern?',
+    choices: ['36', '49', '56', '64'],
+    answer: 3,
+    explanation: 'These are perfect squares: 1², 2², 3², 4², 5²... The 8th number is 8² = 64.',
+  },
+  {
+    id: 'q18', type: 'comparison',
+    question: 'A rectangle has length 8 and width 6. A square has side length 7.\n\nColumn A: Area of the rectangle\nColumn B: Area of the square',
+    choices: ['Column A is greater', 'Column B is greater', 'They are equal', 'Cannot be determined'],
+    answer: 1,
+    explanation: 'Rectangle area = 8 × 6 = 48. Square area = 7 × 7 = 49. Column B is greater by 1.',
+  },
+  {
+    id: 'q19', type: 'pattern',
+    question: 'Each row of a triangle has one more dot than the row above it.\nRow 1: 1 dot. Row 2: 2 dots. Row 3: 3 dots.\n\nHow many TOTAL dots are in a triangle with 10 rows?',
+    choices: ['45', '55', '100', '110'],
+    answer: 1,
+    explanation: 'Total = 1+2+3+4+5+6+7+8+9+10 = 55. Shortcut: n(n+1)/2 = 10(11)/2 = 55.',
+  },
+  {
+    id: 'q20', type: 'comparison',
+    question: 'Column A: 3/5 of 100\nColumn B: 5/3 of 36',
+    choices: ['Column A is greater', 'Column B is greater', 'They are equal', 'Cannot be determined'],
+    answer: 2,
+    explanation: '3/5 of 100 = 60. 5/3 of 36 = 180/3 = 60. They\'re equal!',
+  },
 ];
 
 // ── MATHEMATICS ──
@@ -1279,6 +1371,62 @@ export const MATH_QUESTIONS = [
     choices: ['14', '24', '48', '2'],
     answer: 1,
     explanation: 'Multiples of 6: 6, 12, 18, 24, 30... Multiples of 8: 8, 16, 24, 32... The smallest shared multiple is 24.',
+  },
+  {
+    id: 'm25', type: 'numbers', topic: 'Decimals',
+    question: 'What is 0.75 expressed as a fraction in simplest form?',
+    choices: ['75/100', '3/4', '7/5', '15/20'],
+    answer: 1,
+    explanation: '0.75 = 75/100. Simplify by dividing both by 25: 75÷25 = 3, 100÷25 = 4. So 0.75 = 3/4.',
+  },
+  {
+    id: 'm26', type: 'geometry', topic: 'Coordinate',
+    question: 'Point A is at (3, 2) and Point B is at (7, 2). What is the distance between them?',
+    choices: ['2', '4', '5', '10'],
+    answer: 1,
+    explanation: 'Both points have the same y-coordinate (2), so the distance is just the difference in x-coordinates: 7 - 3 = 4.',
+  },
+  {
+    id: 'm27', type: 'numbers', topic: 'Fractions',
+    question: 'Which fraction is equivalent to 4/6?',
+    choices: ['2/4', '2/3', '8/10', '6/8'],
+    answer: 1,
+    explanation: 'Simplify 4/6 by dividing both numerator and denominator by 2: 4÷2 = 2, 6÷2 = 3. So 4/6 = 2/3.',
+  },
+  {
+    id: 'm28', type: 'measurement', topic: 'Area',
+    question: 'A triangle has a base of 10 cm and a height of 6 cm. What is its area?',
+    choices: ['16 cm²', '30 cm²', '60 cm²', '36 cm²'],
+    answer: 1,
+    explanation: 'Area of a triangle = (base × height) / 2 = (10 × 6) / 2 = 60 / 2 = 30 cm².',
+  },
+  {
+    id: 'm29', type: 'numbers', topic: 'Percents',
+    question: 'A shirt costs $40. It is on sale for 25% off. What is the sale price?',
+    choices: ['$10', '$15', '$25', '$30'],
+    answer: 3,
+    explanation: '25% of $40 = $10 discount. Sale price = $40 - $10 = $30.',
+  },
+  {
+    id: 'm30', type: 'pre-algebra', topic: 'Equations',
+    question: 'If 2x + 8 = 20, what is the value of x?',
+    choices: ['4', '6', '10', '14'],
+    answer: 1,
+    explanation: '2x + 8 = 20 → 2x = 12 → x = 6. Check: 2(6) + 8 = 12 + 8 = 20. ✓',
+  },
+  {
+    id: 'm31', type: 'statistics', topic: 'Mode',
+    question: 'What is the mode of this data set: 3, 7, 3, 9, 5, 3, 8?',
+    choices: ['3', '5', '7', '9'],
+    answer: 0,
+    explanation: 'The mode is the number that appears most often. 3 appears three times — more than any other number.',
+  },
+  {
+    id: 'm32', type: 'geometry', topic: 'Symmetry',
+    question: 'How many lines of symmetry does a regular hexagon have?',
+    choices: ['2', '4', '6', '8'],
+    answer: 2,
+    explanation: 'A regular hexagon has 6 lines of symmetry — 3 through opposite vertices and 3 through midpoints of opposite sides.',
   },
 ];
 
