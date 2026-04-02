@@ -626,12 +626,13 @@ function ModuleScreen({ moduleId }) {
   // Complete
   return (
     <div className="screen module-screen complete-screen">
+      {!isAlreadyDone && <Confetti />}
       <div className="complete-card">
         <div className="complete-icon">🎉</div>
         <h2>Module Complete!</h2>
         <p className="complete-name">{mod.name}</p>
         <div className="complete-stats">
-          <div>{score.correct}/{score.total} correct</div>
+          <div className="complete-score">{score.correct}/{score.total} correct</div>
           {!isAlreadyDone && <div className="bonus-xp">+{XP.TEST_SMARTS_MODULE} XP bonus!</div>}
         </div>
         <button className="primary-btn" onClick={() => setScreen('test-smarts')}>Continue</button>
@@ -1076,6 +1077,39 @@ function ReadingScreen({ passageIndex }) {
           {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {getStreakMessage(streak)}
         </div>
       )}
+    </div>
+  );
+}
+
+// ─── Confetti ───
+function Confetti() {
+  const pieces = useRef(Array.from({ length: 40 }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 2,
+    duration: 2 + Math.random() * 2,
+    color: ['#3b82f6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'][Math.floor(Math.random() * 6)],
+    size: 4 + Math.random() * 6,
+    rotation: Math.random() * 360,
+  }))).current;
+
+  return (
+    <div className="confetti-container">
+      {pieces.map(p => (
+        <div
+          key={p.id}
+          className="confetti-piece"
+          style={{
+            left: `${p.left}%`,
+            animationDelay: `${p.delay}s`,
+            animationDuration: `${p.duration}s`,
+            backgroundColor: p.color,
+            width: `${p.size}px`,
+            height: `${p.size * 0.6}px`,
+            transform: `rotate(${p.rotation}deg)`,
+          }}
+        />
+      ))}
     </div>
   );
 }
