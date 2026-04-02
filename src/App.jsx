@@ -6,6 +6,69 @@ import { ShellGame } from './components/ShellGame';
 import { SpaceInvadersOverlay } from './components/SpaceInvaders';
 import './App.css';
 
+// ─── Sound Effects ───
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch {}
+  }
+  return audioCtx;
+}
+
+function sfxCorrect() {
+  const ac = getAudio(); if (!ac) return;
+  [523, 659, 784].forEach((freq, i) => {
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.connect(gain); gain.connect(ac.destination);
+    osc.type = 'sine';
+    const t = ac.currentTime + i * 0.08;
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0.08, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+    osc.start(t); osc.stop(t + 0.15);
+  });
+}
+
+function sfxWrong() {
+  const ac = getAudio(); if (!ac) return;
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.connect(gain); gain.connect(ac.destination);
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(200, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(120, ac.currentTime + 0.2);
+  gain.gain.setValueAtTime(0.06, ac.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.2);
+  osc.start(ac.currentTime); osc.stop(ac.currentTime + 0.2);
+}
+
+function sfxLevelUp() {
+  const ac = getAudio(); if (!ac) return;
+  [440, 554, 659, 880].forEach((freq, i) => {
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.connect(gain); gain.connect(ac.destination);
+    osc.type = 'triangle';
+    const t = ac.currentTime + i * 0.1;
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0.1, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+    osc.start(t); osc.stop(t + 0.2);
+  });
+}
+
+// ─── Streak Messages ───
+function getStreakMessage(streak) {
+  if (streak >= 20) return 'UNSTOPPABLE!';
+  if (streak >= 15) return 'On fire!';
+  if (streak >= 10) return 'Incredible streak!';
+  if (streak >= 7) return 'You\'re locked in!';
+  if (streak >= 5) return 'Five in a row!';
+  if (streak >= 3) return 'Nice streak!';
+  return '';
+}
+
 // ─── State Management ───
 const STORAGE_KEY = 'erb_prep_progress';
 const SESSION_KEY = 'erb_prep_session';
@@ -119,6 +182,7 @@ export default function App() {
       const next = { ...prev, xp: newXP };
       if (newLevel.name !== oldLevel.name) {
         setLevelUp(newLevel);
+        sfxLevelUp();
         setTimeout(() => setLevelUp(null), 3000);
       }
       saveProgress(next);
@@ -188,6 +252,7 @@ export default function App() {
     const newStreak = currentStreak + 1;
     const xp = calcXP(true, firstTry, newStreak);
     addXP(xp);
+    sfxCorrect();
 
     // Shell game trigger
     if (newStreak >= gameThreshold) {
@@ -209,6 +274,7 @@ export default function App() {
 
   function handleWrongAnswer() {
     addXP(XP.WRONG);
+    sfxWrong();
     setStreak(0);
     return 0;
   }
@@ -690,6 +756,15 @@ function PracticeScreen({ sectionId }) {
         <h2>{section.name}</h2>
         <span className="q-counter">{qIndex + 1}/{questions.length}</span>
       </div>
+      <div className="question-progress">
+        <div className="question-progress-fill" style={{ width: `${((qIndex + 1) / questions.length) * 100}%` }} />
+      </div>
+      <div className="score-bar">
+        <span>{sessionScore.correct} correct</span>
+        <span className="score-accuracy">
+          {sessionScore.total > 0 ? Math.round((sessionScore.correct / sessionScore.total) * 100) : 0}%
+        </span>
+      </div>
 
       <div className="question-container">
         {q.context && <div className="question-context">{q.context}</div>}
@@ -748,7 +823,7 @@ function PracticeScreen({ sectionId }) {
 
       {streak >= 3 && (
         <div className="streak-display">
-          {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {streak} in a row!
+          {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {getStreakMessage(streak)}
         </div>
       )}
     </div>
@@ -905,7 +980,7 @@ function ReadingScreen({ passageIndex }) {
 
       {streak >= 3 && (
         <div className="streak-display">
-          {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {streak} in a row!
+          {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {getStreakMessage(streak)}
         </div>
       )}
     </div>

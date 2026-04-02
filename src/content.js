@@ -277,6 +277,59 @@ export const VERBAL_QUESTIONS = [
     answer: 1,
     explanation: 'Democracy, monarchy, dictatorship, and republic are all forms of government. The other options are too broad or incorrect.',
   },
+  {
+    id: 'v25', type: 'analogy',
+    question: 'RECIPE : CHEF ::',
+    choices: ['blueprint : architect', 'paint : wall', 'hammer : carpenter', 'song : radio'],
+    answer: 0,
+    explanation: 'A RECIPE guides a CHEF\'s work. A BLUEPRINT guides an ARCHITECT\'s work. Both are plans used by professionals.',
+  },
+  {
+    id: 'v26', type: 'logic',
+    question: 'Liam noticed that every time he waters the plant, it grows taller the next week. He concludes that watering causes growth. What would WEAKEN this conclusion?',
+    choices: [
+      'The plant also gets sunlight every day',
+      'Other plants in the garden also grew',
+      'Plants that weren\'t watered grew the same amount',
+      'Liam uses a watering can',
+    ],
+    answer: 2,
+    explanation: 'If plants that WEREN\'T watered grew the same amount, then watering isn\'t the cause — something else is. This directly weakens the cause-effect conclusion.',
+  },
+  {
+    id: 'v27', type: 'category',
+    question: 'Which word does NOT belong with the others?',
+    context: 'peninsula, island, continent, mountain',
+    choices: ['peninsula', 'island', 'continent', 'mountain'],
+    answer: 3,
+    explanation: 'Peninsula, island, and continent are all landforms defined by their relationship to water. A mountain is defined by elevation, not water.',
+  },
+  {
+    id: 'v28', type: 'analogy',
+    question: 'CAPTAIN : SHIP ::',
+    choices: ['pilot : airplane', 'passenger : bus', 'wheel : car', 'track : train'],
+    answer: 0,
+    explanation: 'A CAPTAIN commands a SHIP. A PILOT commands an AIRPLANE. Person who controls a vehicle.',
+  },
+  {
+    id: 'v29', type: 'logic',
+    question: 'Some athletes are tall. All basketball players are athletes. Therefore:',
+    choices: [
+      'All basketball players are tall',
+      'Some basketball players might be tall',
+      'No basketball players are short',
+      'All tall people are basketball players',
+    ],
+    answer: 1,
+    explanation: 'Since only SOME athletes are tall, and basketball players are athletes, some basketball players MIGHT be tall — but we can\'t say ALL are. "Some" doesn\'t guarantee it applies to any specific subset.',
+  },
+  {
+    id: 'v30', type: 'analogy',
+    question: 'COCOON : BUTTERFLY ::',
+    choices: ['egg : chicken', 'seed : flower', 'cave : bat', 'shell : turtle'],
+    answer: 1,
+    explanation: 'A COCOON is the stage before a BUTTERFLY emerges (transformation). A SEED is the stage before a FLOWER grows. Both show stages of development.',
+  },
 ];
 
 // ── VOCABULARY ──
@@ -1217,8 +1270,8 @@ export const MATH_QUESTIONS = [
     id: 'm23', type: 'pre-algebra', topic: 'Patterns',
     question: 'A pattern rule is "multiply by 2, then subtract 1." If the first number is 3, what is the fourth number?',
     choices: ['9', '17', '19', '33'],
-    answer: 2,
-    explanation: 'Start: 3. 3×2-1=5. 5×2-1=9. 9×2-1=17. Wait, that\'s only 3 numbers after the start. The fourth number (including the starting number): 3, 5, 9, 17. But let me recount: 1st=3, 2nd=5, 3rd=9, 4th=17. Hmm, let me fix: actually 1st=3, 2nd=3×2-1=5, 3rd=5×2-1=9, 4th=9×2-1=17.',
+    answer: 1,
+    explanation: '1st = 3. 2nd = 3×2−1 = 5. 3rd = 5×2−1 = 9. 4th = 9×2−1 = 17.',
   },
   {
     id: 'm24', type: 'numbers', topic: 'LCM',
