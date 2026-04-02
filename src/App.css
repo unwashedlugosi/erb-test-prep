@@ -997,9 +997,35 @@ body {
 }
 
 .complete-stats {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.complete-score {
   font-size: 18px;
   font-weight: 600;
+  color: var(--text);
+}
+
+.complete-accuracy {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.complete-message {
+  font-size: 14px;
+  color: var(--text-dim);
   margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.complete-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .bonus-xp {

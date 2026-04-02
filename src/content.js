@@ -460,6 +460,48 @@ export const VOCAB_QUESTIONS = [
     answer: 1,
     explanation: 'If people thought the policy was unfair, they would show "opposition" (resistance/disagreement). "Enthusiasm" and "approval" would mean they liked it.',
   },
+  {
+    id: 'vc19', type: 'context',
+    question: 'The museum exhibit was so ______ that visitors spent hours examining every detail.',
+    choices: ['dull', 'captivating', 'brief', 'confusing'],
+    answer: 1,
+    explanation: '"Captivating" means so interesting it captures your attention. If visitors spent hours examining details, it must have been captivating, not dull, brief, or confusing.',
+  },
+  {
+    id: 'vc20', type: 'context',
+    question: 'The ______ instructions made it impossible for anyone to assemble the furniture correctly.',
+    choices: ['detailed', 'ambiguous', 'illustrated', 'simple'],
+    answer: 1,
+    explanation: '"Ambiguous" means unclear or having more than one interpretation. If nobody could assemble it correctly, the instructions must have been unclear — not detailed, illustrated, or simple.',
+  },
+  {
+    id: 'vc21', type: 'context',
+    question: 'Although the evidence seemed ______, the detective remained ______ and continued investigating.',
+    choices: ['overwhelming ... skeptical', 'weak ... confident', 'conclusive ... satisfied', 'hidden ... frustrated'],
+    answer: 0,
+    explanation: '"Although" signals a contrast. The evidence seemed strong ("overwhelming") but the detective didn\'t accept it ("skeptical") and kept investigating. That contrast makes the sentence work.',
+  },
+  {
+    id: 'vc22', type: 'precision',
+    question: 'The ______ hiker reached the summit despite the dangerous conditions.',
+    choices: ['timid', 'tenacious', 'careless', 'fortunate'],
+    answer: 1,
+    explanation: '"Tenacious" means persistent and determined. Reaching a summit "despite dangerous conditions" requires determination, not timidity or carelessness. "Fortunate" (lucky) doesn\'t describe a quality of the hiker.',
+  },
+  {
+    id: 'vc23', type: 'context',
+    question: 'The company decided to ______ the old factory and build a modern office in its place.',
+    choices: ['renovate', 'demolish', 'expand', 'relocate'],
+    answer: 1,
+    explanation: 'If they\'re building something new "in its place," the old factory must be torn down. "Demolish" means to tear down completely. "Renovate" means to fix up (they\'d keep it). "Expand" means to make bigger.',
+  },
+  {
+    id: 'vc24', type: 'precision',
+    question: 'The sunset painted the sky in ______ shades of orange, pink, and gold.',
+    choices: ['vivid', 'pale', 'ordinary', 'faint'],
+    answer: 0,
+    explanation: '"Vivid" means intensely bright and colorful — the right word for a dramatic sunset with multiple rich colors. "Pale," "faint," and "ordinary" all suggest less intense colors.',
+  },
 ];
 
 // ── READING COMPREHENSION ──

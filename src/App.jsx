@@ -795,16 +795,35 @@ function PracticeScreen({ sectionId }) {
 
   if (done) {
     const accuracy = sessionScore.total > 0 ? Math.round((sessionScore.correct / sessionScore.total) * 100) : 0;
+    const message = accuracy >= 90 ? 'Outstanding! You crushed it!'
+      : accuracy >= 75 ? 'Great work! You\'re getting strong here.'
+      : accuracy >= 60 ? 'Good effort. Keep practicing to build your score.'
+      : 'This section needs more practice. Come back soon!';
     return (
       <div className="screen complete-screen">
         <div className="complete-card">
-          <div className="complete-icon">{section.icon}</div>
+          <div className="complete-icon">{accuracy >= 75 ? '🎉' : accuracy >= 60 ? '💪' : '📚'}</div>
           <h2>Section Complete!</h2>
           <p className="complete-name">{section.name}</p>
           <div className="complete-stats">
-            <div>{sessionScore.correct}/{sessionScore.total} correct ({accuracy}%)</div>
+            <div className="complete-score">{sessionScore.correct}/{sessionScore.total}</div>
+            <div className="complete-accuracy" style={{ color: accuracy >= 75 ? 'var(--correct)' : accuracy >= 60 ? 'var(--accent)' : 'var(--wrong)' }}>
+              {accuracy}%
+            </div>
           </div>
-          <button className="primary-btn" onClick={() => setScreen('practice')}>Back to Sections</button>
+          <p className="complete-message">{message}</p>
+          <div className="complete-actions">
+            <button className="secondary-btn" onClick={() => {
+              setDone(false);
+              setQIndex(0);
+              setSelected(null);
+              setShowExplanation(false);
+              setEliminated([]);
+              setSessionScore({ total: 0, correct: 0 });
+              setStreakLocal(0);
+            }}>Try Again</button>
+            <button className="primary-btn" onClick={() => setScreen('practice')}>Back to Sections</button>
+          </div>
         </div>
       </div>
     );
