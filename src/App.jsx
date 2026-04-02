@@ -644,6 +644,15 @@ function ModuleScreen({ moduleId }) {
 function PracticeMenu() {
   const { setScreen, progress } = useApp();
 
+  // Find weakest section
+  const sectionAccuracies = SECTIONS.map(s => {
+    const st = progress.sectionStats[s.id];
+    return st && st.total >= 3 ? { id: s.id, accuracy: Math.round((st.correct / st.total) * 100) } : null;
+  }).filter(Boolean);
+  const weakest = sectionAccuracies.length > 0
+    ? sectionAccuracies.reduce((a, b) => a.accuracy < b.accuracy ? a : b)
+    : null;
+
   return (
     <div className="screen">
       <div className="screen-header">
@@ -652,15 +661,24 @@ function PracticeMenu() {
       </div>
       <p className="screen-desc">Practice all 7 ERB sections. Questions match real CTP5 format.</p>
 
+      {weakest && weakest.accuracy < 75 && (
+        <div className="focus-area">
+          <span className="focus-label">Focus area:</span>
+          <span className="focus-section">{SECTIONS.find(s => s.id === weakest.id)?.name}</span>
+          <span className="focus-accuracy">{weakest.accuracy}%</span>
+        </div>
+      )}
+
       <div className="section-grid">
         {SECTIONS.map(section => {
           const stats = progress.sectionStats[section.id];
           const accuracy = stats ? Math.round((stats.correct / stats.total) * 100) : null;
+          const isWeak = weakest && weakest.id === section.id && weakest.accuracy < 75;
 
           return (
             <button
               key={section.id}
-              className="section-card"
+              className={`section-card ${isWeak ? 'weak' : ''}`}
               onClick={() => {
                 if (section.id === 'reading') {
                   setScreen('reading:0');
@@ -674,10 +692,22 @@ function PracticeMenu() {
               <div className="section-name">{section.name}</div>
               <div className="section-desc">{section.desc}</div>
               {stats && (
-                <div className="section-stats">
-                  {stats.total} done · {accuracy}%
-                </div>
+                <>
+                  <div className="section-accuracy-bar">
+                    <div
+                      className="section-accuracy-fill"
+                      style={{
+                        width: `${accuracy}%`,
+                        background: accuracy >= 80 ? 'var(--correct)' : accuracy >= 60 ? 'var(--accent)' : 'var(--wrong)',
+                      }}
+                    />
+                  </div>
+                  <div className="section-stats">
+                    {stats.total} done · {accuracy}%
+                  </div>
+                </>
               )}
+              {!stats && <div className="section-stats new-badge">New</div>}
             </button>
           );
         })}
