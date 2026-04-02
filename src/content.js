@@ -954,6 +954,58 @@ export const WRITING_MECH_QUESTIONS = [
     answer: 1,
     explanation: 'In titles, capitalize the first word, last word, and all important words. Don\'t capitalize small words like "the," "and," "a" unless they\'re first.',
   },
+  {
+    id: 'wm19', type: 'usage',
+    question: 'The team ______ their best to win the championship.',
+    choices: ['did', 'done', 'does', 'doing'],
+    answer: 0,
+    explanation: 'Past tense of "do" is "did." "Done" needs a helper verb ("had done"). "Does" is present tense. "Doing" is a participle.',
+  },
+  {
+    id: 'wm20', type: 'spelling',
+    question: 'Which word is spelled INCORRECTLY?',
+    choices: ['beginning', 'different', 'libary', 'tomorrow'],
+    answer: 2,
+    explanation: 'The correct spelling is "library" — with an R after the B: "li-brar-y." This is one of the most commonly mispronounced and misspelled words.',
+  },
+  {
+    id: 'wm21', type: 'punctuation',
+    question: 'Which sentence uses a semicolon correctly?',
+    choices: [
+      'I went to the store; and bought some milk.',
+      'The sun was setting; the sky turned orange and pink.',
+      'She likes cats; dogs; and hamsters.',
+      'After school; I went to practice.',
+    ],
+    answer: 1,
+    explanation: 'A semicolon joins two complete, related sentences. "The sun was setting" and "the sky turned orange and pink" are both complete thoughts. The other options misuse the semicolon.',
+  },
+  {
+    id: 'wm22', type: 'usage',
+    question: 'Which sentence has NO errors?',
+    choices: [
+      'Me and Jake went to the movies.',
+      'Jake and me went to the movies.',
+      'Jake and I went to the movies.',
+      'I and Jake went to the movies.',
+    ],
+    answer: 2,
+    explanation: '"Jake and I" is correct — "I" is used as a subject. Test it: you\'d say "I went to the movies," not "Me went." Also, etiquette puts the other person first.',
+  },
+  {
+    id: 'wm23', type: 'spelling',
+    question: 'Which word is spelled INCORRECTLY?',
+    choices: ['knowledge', 'scissors', 'independant', 'calendar'],
+    answer: 2,
+    explanation: 'The correct spelling is "independent" — with an E, not an A: "independ-ENT."',
+  },
+  {
+    id: 'wm24', type: 'usage',
+    question: 'Between you and ______, I think the test will be easy.',
+    choices: ['I', 'me', 'myself', 'we'],
+    answer: 1,
+    explanation: '"Between" is a preposition, so it takes an object pronoun: "me," not "I." "Between you and me" is correct. "Between you and I" is a very common error.',
+  },
 ];
 
 // ── WRITING CONCEPTS & SKILLS ──
@@ -1086,6 +1138,78 @@ export const WRITING_CONCEPTS_QUESTIONS = [
     ],
     answer: 1,
     explanation: 'A letter to a newspaper editor should be formal, specific, and establish credibility. Option B names the park, provides context (fifty years), and uses appropriate tone.',
+  },
+  {
+    id: 'wc13', type: 'style',
+    question: 'Which revision BEST combines these two sentences?\n"The volcano erupted violently. Ash covered the entire valley."',
+    choices: [
+      'The volcano erupted violently, ash covered the entire valley.',
+      'When the volcano erupted violently, ash covered the entire valley.',
+      'The volcano erupted violently and ash covered the entire valley and it was everywhere.',
+      'Ash covered the entire valley, the volcano erupted violently.',
+    ],
+    answer: 1,
+    explanation: 'Option B uses "When" to show cause and effect clearly. Option A is a comma splice. Option C is wordy. Option D reverses the logical order (effect before cause).',
+  },
+  {
+    id: 'wc14', type: 'organization',
+    question: 'Which sentence is the BEST thesis statement for an essay about school uniforms?',
+    choices: [
+      'School uniforms are interesting to think about.',
+      'Many schools require uniforms.',
+      'School uniforms reduce bullying, save families money, and help students focus on learning.',
+      'I think school uniforms are good.',
+    ],
+    answer: 2,
+    explanation: 'A strong thesis states a clear position AND previews the supporting points. Option C does both — it takes a position and lists three specific reasons that the essay will develop.',
+  },
+  {
+    id: 'wc15', type: 'supporting',
+    question: 'Read this paragraph:\n"Regular exercise has many benefits for young people. It strengthens bones and muscles. ________. It also helps reduce stress and improve mood."\n\nWhich sentence BEST fills the blank?',
+    choices: [
+      'Some kids play video games instead of exercising.',
+      'It improves heart health and helps maintain a healthy weight.',
+      'Exercise was invented by the ancient Greeks.',
+      'Schools should have longer recess periods.',
+    ],
+    answer: 1,
+    explanation: 'The paragraph lists physical benefits of exercise. Option B adds another physical benefit (heart health, weight) and fits the pattern. The others go off-topic.',
+  },
+  {
+    id: 'wc16', type: 'audience',
+    question: 'Which sentence would be MOST appropriate in a science lab report?',
+    choices: [
+      'The experiment was super cool and the results were awesome!',
+      'The experiment yielded results consistent with our hypothesis.',
+      'I liked doing this experiment because it was fun.',
+      'Everyone should try this experiment at home.',
+    ],
+    answer: 1,
+    explanation: 'Lab reports require formal, objective language. Option B uses scientific vocabulary ("yielded," "consistent," "hypothesis") without personal opinion or informal language.',
+  },
+  {
+    id: 'wc17', type: 'style',
+    question: 'Which sentence uses the MOST vivid language?',
+    choices: [
+      'The wind was very strong.',
+      'The wind blew hard.',
+      'The howling wind ripped through the trees, scattering leaves across the yard.',
+      'There was a lot of wind outside.',
+    ],
+    answer: 2,
+    explanation: 'Option C uses specific, vivid verbs ("howling," "ripped," "scattering") and concrete details ("trees," "leaves," "yard") instead of vague descriptors like "strong" or "hard."',
+  },
+  {
+    id: 'wc18', type: 'organization',
+    question: 'In a five-paragraph essay, what is the purpose of the FIRST body paragraph?',
+    choices: [
+      'To introduce the topic and state the thesis',
+      'To present the strongest supporting argument',
+      'To summarize all the main points',
+      'To provide background information about the author',
+    ],
+    answer: 1,
+    explanation: 'The first body paragraph (paragraph 2 of 5) presents the strongest supporting argument for the thesis. The introduction (paragraph 1) introduces the topic. The conclusion (paragraph 5) summarizes.',
   },
 ];
 
