@@ -1,7 +1,11 @@
-import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
+import { useState, useEffect, useRef, createContext, useContext } from 'react';
 import { supabase } from './supabase';
-import { LEVELS, SECTIONS, TEST_DATE, getDaysUntilTest, getLevel, getNextLevel, calcXP, XP, getQuestions, READING_PASSAGES } from './content';
-import { MODULES, REQUIRED_MODULES } from './test-smarts';
+import {
+  LEVELS, SECTIONS, TOPICS, TEST_DATE,
+  getDaysUntilTest, getLevel, getNextLevel, calcXP, XP,
+  getTopic, getTopicsBySection,
+} from './content';
+import { MODULES } from './test-smarts';
 import { ShellGame } from './components/ShellGame';
 import { SpaceInvadersOverlay } from './components/SpaceInvaders';
 import './App.css';
@@ -70,30 +74,30 @@ function getStreakMessage(streak) {
 }
 
 // ─── State Management ───
-const STORAGE_KEY = 'erb_prep_progress';
-const SESSION_KEY = 'erb_prep_session';
-
-function loadProgress() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch {}
-  return defaultProgress();
-}
+const STORAGE_KEY = 'erb_prep_progress_v2';
+const SESSION_KEY = 'erb_prep_session_v2';
 
 function defaultProgress() {
   return {
     xp: 0,
-    testSmartsCompleted: [],
-    sectionStats: {},
-    streak: 0,
-    lastSessionDate: null,
+    modulesCompleted: [],          // strategy modules done
+    topicsStarted: [],             // topic ids the user opened
+    topicsCompleted: [],           // topic ids where user finished real practice
+    topicStats: {},                // { topicId: { total, correct } }
     sessionCount: 0,
     totalQuestions: 0,
     totalCorrect: 0,
     totalTimeSeconds: 0,
     sessionBonusAwarded: false,
   };
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return { ...defaultProgress(), ...JSON.parse(raw) };
+  } catch {}
+  return defaultProgress();
 }
 
 function loadSession() {
@@ -105,7 +109,7 @@ function loadSession() {
       if (now - s.startedAt < 4 * 60 * 60 * 1000) return s;
     }
   } catch {}
-  return { startedAt: Date.now(), questionsAnswered: 0, questionsCorrect: 0, xpEarned: 0, sections: [] };
+  return { startedAt: Date.now(), questionsAnswered: 0, questionsCorrect: 0, xpEarned: 0 };
 }
 
 // ─── App Context ───
@@ -127,7 +131,6 @@ export default function App() {
   const sessionTimerRef = useRef(null);
   const [sessionSeconds, setSessionSeconds] = useState(0);
 
-  // Session timer
   useEffect(() => {
     sessionTimerRef.current = setInterval(() => {
       setSessionSeconds(s => s + 1);
@@ -135,7 +138,6 @@ export default function App() {
     return () => clearInterval(sessionTimerRef.current);
   }, []);
 
-  // 15-minute session bonus
   useEffect(() => {
     if (sessionSeconds >= 900 && !progress.sessionBonusAwarded) {
       addXP(XP.SESSION_15_MIN, true);
@@ -145,9 +147,9 @@ export default function App() {
         return next;
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionSeconds, progress.sessionBonusAwarded]);
 
-  // Persist
   function saveProgress(p) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
     supabase.from('erb_live').upsert({
@@ -155,8 +157,8 @@ export default function App() {
       xp: p.xp,
       level_name: getLevel(p.xp).name,
       current_screen: screen,
-      test_smarts_completed: p.testSmartsCompleted,
-      practice_unlocked: isPracticeUnlocked(p),
+      test_smarts_completed: p.modulesCompleted,
+      practice_unlocked: true,
       session_count: p.sessionCount,
       total_questions: p.totalQuestions,
       total_correct: p.totalCorrect,
@@ -170,11 +172,7 @@ export default function App() {
     localStorage.setItem(SESSION_KEY, JSON.stringify(s));
   }
 
-  function isPracticeUnlocked(p = progress) {
-    return REQUIRED_MODULES.every(id => p.testSmartsCompleted.includes(id));
-  }
-
-  function addXP(amount, isBonus = false) {
+  function addXP(amount) {
     setProgress(prev => {
       const oldLevel = getLevel(prev.xp);
       const newXP = prev.xp + amount;
@@ -192,12 +190,12 @@ export default function App() {
     setTimeout(() => setXpFloat(null), 1200);
   }
 
-  function completeTestSmarts(moduleId) {
+  function completeModule(moduleId) {
     setProgress(prev => {
-      if (prev.testSmartsCompleted.includes(moduleId)) return prev;
+      if (prev.modulesCompleted.includes(moduleId)) return prev;
       const next = {
         ...prev,
-        testSmartsCompleted: [...prev.testSmartsCompleted, moduleId],
+        modulesCompleted: [...prev.modulesCompleted, moduleId],
         xp: prev.xp + XP.TEST_SMARTS_MODULE,
       };
       const oldLevel = getLevel(prev.xp);
@@ -213,23 +211,64 @@ export default function App() {
     setTimeout(() => setXpFloat(null), 1200);
   }
 
-  function logAnswer(section, topic, questionId, questionText, correctAnswer, givenAnswer, correct, firstTry, timeMs) {
+  function markTopicStarted(topicId) {
+    setProgress(prev => {
+      if (prev.topicsStarted.includes(topicId)) return prev;
+      const next = {
+        ...prev,
+        topicsStarted: [...prev.topicsStarted, topicId],
+        xp: prev.xp + XP.TOPIC_LESSON,
+      };
+      saveProgress(next);
+      return next;
+    });
+    setXpFloat({ amount: XP.TOPIC_LESSON, id: Date.now() });
+    setTimeout(() => setXpFloat(null), 1200);
+  }
+
+  function markTopicCompleted(topicId) {
+    setProgress(prev => {
+      if (prev.topicsCompleted.includes(topicId)) return prev;
+      const next = {
+        ...prev,
+        topicsCompleted: [...prev.topicsCompleted, topicId],
+        xp: prev.xp + XP.TOPIC_COMPLETE,
+      };
+      const oldLevel = getLevel(prev.xp);
+      const newLevel = getLevel(next.xp);
+      if (newLevel.name !== oldLevel.name) {
+        setLevelUp(newLevel);
+        sfxLevelUp();
+        setTimeout(() => setLevelUp(null), 3000);
+      }
+      saveProgress(next);
+      return next;
+    });
+    setXpFloat({ amount: XP.TOPIC_COMPLETE, id: Date.now() });
+    setTimeout(() => setXpFloat(null), 1200);
+  }
+
+  function logAnswer(topicId, questionId, questionText, correctAnswer, givenAnswer, correct, firstTry, timeMs) {
     supabase.from('erb_answers').insert({
-      section, topic, question_id: questionId, question_text: questionText,
-      correct_answer: correctAnswer, given_answer: givenAnswer,
+      section: topicId,
+      topic: topicId,
+      question_id: questionId,
+      question_text: questionText,
+      correct_answer: correctAnswer,
+      given_answer: givenAnswer,
       correct, first_try: firstTry, time_spent_ms: timeMs,
     }).then(() => {});
 
     setProgress(prev => {
-      const stats = { ...prev.sectionStats };
-      if (!stats[section]) stats[section] = { total: 0, correct: 0 };
-      stats[section] = {
-        total: stats[section].total + 1,
-        correct: stats[section].correct + (correct ? 1 : 0),
+      const stats = { ...prev.topicStats };
+      if (!stats[topicId]) stats[topicId] = { total: 0, correct: 0 };
+      stats[topicId] = {
+        total: stats[topicId].total + 1,
+        correct: stats[topicId].correct + (correct ? 1 : 0),
       };
       const next = {
         ...prev,
-        sectionStats: stats,
+        topicStats: stats,
         totalQuestions: prev.totalQuestions + 1,
         totalCorrect: prev.totalCorrect + (correct ? 1 : 0),
       };
@@ -254,7 +293,6 @@ export default function App() {
     addXP(xp);
     sfxCorrect();
 
-    // Shell game trigger
     if (newStreak >= gameThreshold) {
       setShowShellGame(true);
       setStreak(0);
@@ -262,7 +300,6 @@ export default function App() {
       return 0;
     }
 
-    // Space invaders at 20 streak
     if (newStreak >= 20 && !spaceInvadersPlayed.current) {
       spaceInvadersPlayed.current = true;
       setShowSpaceInvaders(true);
@@ -281,20 +318,18 @@ export default function App() {
 
   const ctx = {
     screen, setScreen, progress, session, streak, setStreak,
-    addXP, completeTestSmarts, logAnswer, isPracticeUnlocked,
-    handleCorrectAnswer, handleWrongAnswer, sessionSeconds,
+    addXP, completeModule, markTopicStarted, markTopicCompleted,
+    logAnswer, handleCorrectAnswer, handleWrongAnswer, sessionSeconds,
     showShellGame, setShowShellGame, showSpaceInvaders, setShowSpaceInvaders,
   };
 
   return (
     <AppContext.Provider value={ctx}>
       <div className="app">
-        {/* XP Float */}
         {xpFloat && (
           <div className="xp-float" key={xpFloat.id}>+{xpFloat.amount} XP</div>
         )}
 
-        {/* Level Up */}
         {levelUp && (
           <div className="level-up-overlay">
             <div className="level-up-card">
@@ -305,63 +340,43 @@ export default function App() {
           </div>
         )}
 
-        {/* Shell Game */}
         {showShellGame && (
           <div className="game-overlay">
             <ShellGame onComplete={() => setShowShellGame(false)} />
           </div>
         )}
 
-        {/* Space Invaders */}
         {showSpaceInvaders && (
           <div className="game-overlay">
             <SpaceInvadersOverlay onClose={() => setShowSpaceInvaders(false)} />
           </div>
         )}
 
-        {/* Screens */}
         {screen === 'home' && <HomeScreen />}
-        {screen === 'test-smarts' && <TestSmartsMenu />}
-        {screen.startsWith('module:') && <ModuleScreen moduleId={screen.split(':')[1]} />}
-        {screen === 'practice' && <PracticeMenu />}
-        {screen.startsWith('practice:') && <PracticeScreen sectionId={screen.split(':')[1]} />}
-        {screen.startsWith('reading:') && <ReadingScreen passageIndex={parseInt(screen.split(':')[1])} />}
+        {screen === 'strategy' && <ModuleScreen moduleId="eliminate" />}
+        {screen === 'topics' && <TopicMenu />}
+        {screen.startsWith('topic:') && <TopicScreen topicId={screen.split(':')[1]} />}
       </div>
     </AppContext.Provider>
   );
 }
 
-// ─── Motivational Messages ───
-const MOTD = [
-  'Every question you practice makes the real test easier.',
-  'You\'re building skills that last a lifetime.',
-  'The best test-takers aren\'t the smartest — they\'re the most prepared.',
-  'Strategy beats raw ability on standardized tests.',
-  'Knowing HOW to take a test is just as important as knowing the material.',
-  'Practice doesn\'t make perfect — it makes prepared.',
-  'You\'ve got this.',
-  'No surprises on test day — that\'s the goal.',
-  'Smart test-takers know when to guess and when to grind.',
-  'Every strategy you learn is a tool in your test-day toolkit.',
-];
-
 // ─── Home Screen ───
 function HomeScreen() {
-  const { progress, setScreen, isPracticeUnlocked, sessionSeconds } = useApp();
+  const { progress, setScreen, sessionSeconds } = useApp();
   const level = getLevel(progress.xp);
   const nextLevel = getNextLevel(progress.xp);
   const daysLeft = getDaysUntilTest();
   const pct = nextLevel
     ? Math.round(((progress.xp - level.xp) / (nextLevel.xp - level.xp)) * 100)
     : 100;
-
   const accuracy = progress.totalQuestions > 0
     ? Math.round((progress.totalCorrect / progress.totalQuestions) * 100)
     : 0;
-
   const sessionMin = Math.floor(sessionSeconds / 60);
-  const unlocked = isPracticeUnlocked();
-  const [motd] = useState(() => MOTD[Math.floor(Math.random() * MOTD.length)]);
+  const strategyDone = progress.modulesCompleted.includes('eliminate');
+  const topicsDone = progress.topicsCompleted.length;
+  const topicsTotal = TOPICS.length;
 
   return (
     <div className="screen home-screen">
@@ -369,7 +384,7 @@ function HomeScreen() {
         <h1 className="app-title">ERB Prep</h1>
         <div className="countdown">
           <span className="countdown-num">{daysLeft}</span>
-          <span className="countdown-label">days until test</span>
+          <span className="countdown-label">{daysLeft === 1 ? 'day' : 'days'} until test</span>
         </div>
       </header>
 
@@ -393,34 +408,26 @@ function HomeScreen() {
         {sessionMin < 15 && <span className="session-remaining">{15 - sessionMin} min to daily target</span>}
       </div>
 
-      <div className="motd">{motd}</div>
-
       <div className="home-cards">
-        <button className="home-card test-smarts-card" onClick={() => setScreen('test-smarts')}>
-          <div className="card-icon">🧠</div>
-          <div className="card-title">Test Smarts</div>
-          <div className="card-desc">Learn strategies that work on any test</div>
+        <button className="home-card test-smarts-card" onClick={() => setScreen('strategy')}>
+          <div className="card-icon">{strategyDone ? '✅' : '✂️'}</div>
+          <div className="card-title">Strategy</div>
+          <div className="card-desc">How to eliminate wrong answers — the only test-taking strategy that matters</div>
           <div className="card-progress">
-            {progress.testSmartsCompleted.length}/{MODULES.length} modules
+            {strategyDone ? 'Done — review anytime' : '8 questions · ~5 min'}
           </div>
         </button>
 
-        <button
-          className={`home-card practice-card ${!unlocked ? 'locked' : ''}`}
-          onClick={() => unlocked ? setScreen('practice') : null}
-          disabled={!unlocked}
-        >
-          <div className="card-icon">{unlocked ? '📝' : '🔒'}</div>
-          <div className="card-title">Practice</div>
+        <button className="home-card practice-card" onClick={() => setScreen('topics')}>
+          <div className="card-icon">📝</div>
+          <div className="card-title">Practice by Question Type</div>
           <div className="card-desc">
-            {unlocked
-              ? 'Practice all 7 ERB sections'
-              : `Complete ${REQUIRED_MODULES.length - progress.testSmartsCompleted.filter(id => REQUIRED_MODULES.includes(id)).length} more required Test Smarts modules to unlock`
-            }
+            Each type teaches the format, then drills it until it sticks
           </div>
-          {unlocked && progress.totalQuestions > 0 && (
-            <div className="card-progress">{progress.totalQuestions} questions · {accuracy}% accuracy</div>
-          )}
+          <div className="card-progress">
+            {topicsDone}/{topicsTotal} types complete
+            {progress.totalQuestions > 0 && ` · ${accuracy}% accuracy`}
+          </div>
         </button>
       </div>
 
@@ -444,54 +451,11 @@ function HomeScreen() {
   );
 }
 
-// ─── Test Smarts Menu ───
-function TestSmartsMenu() {
-  const { progress, setScreen } = useApp();
-
-  return (
-    <div className="screen">
-      <div className="screen-header">
-        <button className="back-btn" onClick={() => setScreen('home')}>← Back</button>
-        <h2>Test Smarts</h2>
-      </div>
-      <p className="screen-desc">Learn strategies that help on any standardized test. Complete the required modules to unlock Practice.</p>
-
-      <div className="module-list">
-        {MODULES.map((mod, i) => {
-          const done = progress.testSmartsCompleted.includes(mod.id);
-          const prevDone = i === 0 || progress.testSmartsCompleted.includes(MODULES[i - 1].id);
-          const locked = !prevDone && !done;
-
-          return (
-            <button
-              key={mod.id}
-              className={`module-item ${done ? 'done' : ''} ${locked ? 'locked' : ''} ${mod.required ? 'required' : ''}`}
-              onClick={() => !locked && setScreen(`module:${mod.id}`)}
-              disabled={locked}
-            >
-              <span className="module-icon">{done ? '✅' : mod.icon}</span>
-              <div className="module-info">
-                <div className="module-name">
-                  {mod.name}
-                  {mod.required && !done && <span className="required-badge">Required</span>}
-                </div>
-                <div className="module-desc">{mod.desc}</div>
-              </div>
-              {locked && <span className="lock-icon">🔒</span>}
-              {done && <span className="done-check">Done</span>}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// ─── Module Screen (Test Smarts) ───
+// ─── Module Screen (the one strategy module) ───
 function ModuleScreen({ moduleId }) {
-  const { setScreen, completeTestSmarts, progress, handleCorrectAnswer, handleWrongAnswer, logAnswer } = useApp();
+  const { setScreen, completeModule, progress, handleCorrectAnswer, handleWrongAnswer, logAnswer } = useApp();
   const mod = MODULES.find(m => m.id === moduleId);
-  const [phase, setPhase] = useState('intro'); // intro, practice, complete
+  const [phase, setPhase] = useState('intro');
   const [slideIndex, setSlideIndex] = useState(0);
   const [practiceIndex, setPracticeIndex] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -504,7 +468,7 @@ function ModuleScreen({ moduleId }) {
   const slides = mod.intro.slides;
   const questions = mod.practice;
   const currentQ = questions[practiceIndex];
-  const isAlreadyDone = progress.testSmartsCompleted.includes(moduleId);
+  const isAlreadyDone = progress.modulesCompleted.includes(moduleId);
 
   function handleSelect(idx) {
     if (selected !== null) return;
@@ -514,7 +478,7 @@ function ModuleScreen({ moduleId }) {
     const newScore = { ...score, total: score.total + 1, correct: score.correct + (correct ? 1 : 0) };
     setScore(newScore);
 
-    logAnswer('test-smarts', mod.id, currentQ.id, currentQ.scenario, String(currentQ.answer), String(idx), correct, true, 0);
+    logAnswer('strategy', currentQ.id, currentQ.scenario, String(currentQ.answer), String(idx), correct, true, 0);
 
     if (correct) {
       const ns = handleCorrectAnswer(true, streak);
@@ -532,19 +496,16 @@ function ModuleScreen({ moduleId }) {
       setShowExplanation(false);
     } else {
       setPhase('complete');
-      if (!isAlreadyDone) {
-        completeTestSmarts(moduleId);
-      }
+      if (!isAlreadyDone) completeModule(moduleId);
     }
   }
 
-  // Intro slides
   if (phase === 'intro') {
     const slide = slides[slideIndex];
     return (
       <div className="screen module-screen">
         <div className="screen-header">
-          <button className="back-btn" onClick={() => setScreen('test-smarts')}>← Back</button>
+          <button className="back-btn" onClick={() => setScreen('home')}>← Home</button>
           <h2>{mod.intro.title}</h2>
         </div>
         <div className="slide-container">
@@ -556,6 +517,9 @@ function ModuleScreen({ moduleId }) {
           <div className="slide-content">
             <p className="slide-text">{slide.text}</p>
             <div className="slide-highlight">{slide.highlight}</div>
+            {slide.example && (
+              <div className="slide-example">{slide.example}</div>
+            )}
           </div>
           <div className="slide-nav">
             {slideIndex > 0 && (
@@ -572,17 +536,16 @@ function ModuleScreen({ moduleId }) {
     );
   }
 
-  // Practice
   if (phase === 'practice') {
     return (
       <div className="screen module-screen">
         <div className="screen-header">
-          <button className="back-btn" onClick={() => setScreen('test-smarts')}>← Back</button>
+          <button className="back-btn" onClick={() => setScreen('home')}>← Home</button>
           <h2>{mod.name}</h2>
           <span className="q-counter">{practiceIndex + 1}/{questions.length}</span>
         </div>
         <div className="question-container">
-          <p className="question-text">{currentQ.scenario}</p>
+          <p className="question-text" style={{ whiteSpace: 'pre-wrap' }}>{currentQ.scenario}</p>
           <div className="choices">
             {currentQ.choices.map((choice, i) => (
               <button
@@ -609,7 +572,7 @@ function ModuleScreen({ moduleId }) {
               <div className="explanation-icon">{selected === currentQ.answer ? '✓' : '✗'}</div>
               <p>{currentQ.explanation}</p>
               <button className="primary-btn" onClick={nextQuestion}>
-                {practiceIndex < questions.length - 1 ? 'Next Question' : 'Finish'}
+                {practiceIndex < questions.length - 1 ? 'Next' : 'Finish'}
               </button>
             </div>
           )}
@@ -623,158 +586,167 @@ function ModuleScreen({ moduleId }) {
     );
   }
 
-  // Complete
   return (
     <div className="screen module-screen complete-screen">
       {!isAlreadyDone && <Confetti />}
       <div className="complete-card">
         <div className="complete-icon">🎉</div>
-        <h2>Module Complete!</h2>
+        <h2>Strategy Done!</h2>
         <p className="complete-name">{mod.name}</p>
         <div className="complete-stats">
           <div className="complete-score">{score.correct}/{score.total} correct</div>
           {!isAlreadyDone && <div className="bonus-xp">+{XP.TEST_SMARTS_MODULE} XP bonus!</div>}
         </div>
-        <button className="primary-btn" onClick={() => setScreen('test-smarts')}>Continue</button>
+        <p className="complete-message">Now use these moves on every practice question.</p>
+        <div className="complete-actions">
+          <button className="primary-btn" onClick={() => setScreen('topics')}>Practice Question Types</button>
+          <button className="secondary-btn" onClick={() => setScreen('home')}>Home</button>
+        </div>
       </div>
     </div>
   );
 }
 
-// ─── Practice Menu ───
-function PracticeMenu() {
+// ─── Topic Menu ───
+function TopicMenu() {
   const { setScreen, progress } = useApp();
-
-  // Find weakest section
-  const sectionAccuracies = SECTIONS.map(s => {
-    const st = progress.sectionStats[s.id];
-    return st && st.total >= 3 ? { id: s.id, accuracy: Math.round((st.correct / st.total) * 100) } : null;
-  }).filter(Boolean);
-  const weakest = sectionAccuracies.length > 0
-    ? sectionAccuracies.reduce((a, b) => a.accuracy < b.accuracy ? a : b)
-    : null;
 
   return (
     <div className="screen">
       <div className="screen-header">
-        <button className="back-btn" onClick={() => setScreen('home')}>← Back</button>
-        <h2>Practice</h2>
+        <button className="back-btn" onClick={() => setScreen('home')}>← Home</button>
+        <h2>Question Types</h2>
       </div>
-      <p className="screen-desc">Practice all 7 ERB sections. Questions match real CTP5 format.</p>
+      <p className="screen-desc">Pick a question type. Each one starts with a quick lesson, then warmup questions, then real practice.</p>
 
-      {weakest && weakest.accuracy < 75 && (
-        <div className="focus-area">
-          <span className="focus-label">Focus area:</span>
-          <span className="focus-section">{SECTIONS.find(s => s.id === weakest.id)?.name}</span>
-          <span className="focus-accuracy">{weakest.accuracy}%</span>
-        </div>
-      )}
+      {SECTIONS.map(section => {
+        const topics = getTopicsBySection(section.id);
+        if (topics.length === 0) return null;
+        return (
+          <div key={section.id} className="topic-section-group" style={{ '--section-color': section.color }}>
+            <div className="topic-section-header">
+              <span className="topic-section-icon">{section.icon}</span>
+              <span className="topic-section-name">{section.name}</span>
+            </div>
+            <div className="topic-list">
+              {topics.map(topic => {
+                const stats = progress.topicStats[topic.id];
+                const accuracy = stats && stats.total > 0
+                  ? Math.round((stats.correct / stats.total) * 100)
+                  : null;
+                const completed = progress.topicsCompleted.includes(topic.id);
+                const started = progress.topicsStarted.includes(topic.id);
 
-      <div className="section-grid">
-        {SECTIONS.map(section => {
-          const stats = progress.sectionStats[section.id];
-          const accuracy = stats ? Math.round((stats.correct / stats.total) * 100) : null;
-          const isWeak = weakest && weakest.id === section.id && weakest.accuracy < 75;
-
-          return (
-            <button
-              key={section.id}
-              className={`section-card ${isWeak ? 'weak' : ''}`}
-              onClick={() => {
-                if (section.id === 'reading') {
-                  setScreen('reading:0');
-                } else {
-                  setScreen(`practice:${section.id}`);
-                }
-              }}
-              style={{ '--section-color': section.color }}
-            >
-              <div className="section-icon">{section.icon}</div>
-              <div className="section-name">{section.name}</div>
-              <div className="section-desc">{section.desc}</div>
-              {stats && (
-                <>
-                  <div className="section-accuracy-bar">
-                    <div
-                      className="section-accuracy-fill"
-                      style={{
-                        width: `${accuracy}%`,
-                        background: accuracy >= 80 ? 'var(--correct)' : accuracy >= 60 ? 'var(--accent)' : 'var(--wrong)',
-                      }}
-                    />
-                  </div>
-                  <div className="section-stats">
-                    {stats.total} done · {accuracy}%
-                  </div>
-                </>
-              )}
-              {!stats && <div className="section-stats new-badge">New</div>}
-            </button>
-          );
-        })}
-      </div>
+                return (
+                  <button
+                    key={topic.id}
+                    className={`topic-card ${completed ? 'completed' : ''} ${started ? 'started' : ''}`}
+                    onClick={() => setScreen(`topic:${topic.id}`)}
+                  >
+                    <div className="topic-card-icon">
+                      {completed ? '✅' : topic.icon}
+                    </div>
+                    <div className="topic-card-info">
+                      <div className="topic-card-name">
+                        {topic.name}
+                        {topic.priority === 'critical' && (
+                          <span className="critical-badge" title="School doesn't teach this — biggest score gain">★</span>
+                        )}
+                      </div>
+                      <div className="topic-card-meta">
+                        {!started && 'New — start with the lesson'}
+                        {started && !completed && stats && `In progress · ${stats.correct}/${stats.total} (${accuracy}%)`}
+                        {started && !completed && !stats && 'Lesson done — start practice'}
+                        {completed && stats && `Done · ${stats.correct}/${stats.total} (${accuracy}%)`}
+                      </div>
+                    </div>
+                    {accuracy !== null && (
+                      <div className="topic-card-accuracy">
+                        <div
+                          className="topic-accuracy-bar"
+                          style={{
+                            width: `${accuracy}%`,
+                            background: accuracy >= 80 ? 'var(--correct)' : accuracy >= 60 ? 'var(--accent)' : 'var(--wrong)',
+                          }}
+                        />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-// ─── Practice Screen (non-reading sections) ───
-function PracticeScreen({ sectionId }) {
-  const { setScreen, handleCorrectAnswer, handleWrongAnswer, logAnswer } = useApp();
-  const section = SECTIONS.find(s => s.id === sectionId);
-  const allQuestions = getQuestions(sectionId);
-  const [questions] = useState(() => shuffleArray([...allQuestions]));
-  const [qIndex, setQIndex] = useState(0);
+// ─── Topic Screen (Lesson → Warmups → Practice → Done) ───
+function TopicScreen({ topicId }) {
+  const {
+    setScreen, progress,
+    handleCorrectAnswer, handleWrongAnswer, logAnswer,
+    markTopicStarted, markTopicCompleted,
+  } = useApp();
+  const topic = getTopic(topicId);
+
+  // Phase: lesson | warmup | practice | done
+  const [phase, setPhase] = useState('lesson');
+  const [lessonIndex, setLessonIndex] = useState(0);
+
+  // Reading topics use passages instead of flat questions
+  const isReading = topic && topic.passages && topic.passages.length > 0;
+  const allItems = isReading
+    ? topic.passages.flatMap(p => p.questions.map(q => ({ ...q, passageId: p.id, passageTitle: p.title, passageText: p.text })))
+    : (topic ? topic.questions : []);
+  const warmups = (topic && topic.warmups) || [];
+
+  const [warmupIndex, setWarmupIndex] = useState(0);
+  const [practiceIndex, setPracticeIndex] = useState(0);
   const [selected, setSelected] = useState(null);
-  const nextBtnRef = useRef(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [streak, setStreakLocal] = useState(0);
-  const [sessionScore, setSessionScore] = useState({ total: 0, correct: 0 });
+  const [warmupScore, setWarmupScore] = useState({ total: 0, correct: 0 });
+  const [practiceScore, setPracticeScore] = useState({ total: 0, correct: 0 });
   const [eliminated, setEliminated] = useState([]);
-  const [done, setDone] = useState(false);
+  const [showPassage, setShowPassage] = useState(true);
   const startTime = useRef(Date.now());
-  const showExplanationRef = useRef(false);
-  showExplanationRef.current = showExplanation;
 
-  // Keyboard shortcuts: Enter to advance, 1-4 to select answer
-  const selectedRef = useRef(null);
-  selectedRef.current = selected;
-  const eliminatedRef = useRef([]);
-  eliminatedRef.current = eliminated;
-  const qRef = useRef(null);
-  qRef.current = questions[qIndex];
+  if (!topic) return null;
 
-  useEffect(() => {
-    function handleKey(e) {
-      if (e.key === 'Enter' && showExplanationRef.current) {
-        nextQuestion();
-        return;
-      }
-      // Number keys 1-4 to select answers
-      const num = parseInt(e.key);
-      if (num >= 1 && num <= 4 && selectedRef.current === null && !eliminatedRef.current.includes(num - 1)) {
-        handleSelect(num - 1);
-      }
+  const currentQ = phase === 'warmup' ? warmups[warmupIndex] : allItems[practiceIndex];
+
+  function startPractice() {
+    if (!progress.topicsStarted.includes(topicId)) {
+      markTopicStarted(topicId);
     }
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [qIndex, questions.length]);
-
-  if (!section || questions.length === 0) return null;
-
-  const q = questions[qIndex];
+    if (warmups.length > 0) {
+      setPhase('warmup');
+    } else {
+      setPhase('practice');
+    }
+    startTime.current = Date.now();
+  }
 
   function handleSelect(idx) {
     if (selected !== null) return;
     if (eliminated.includes(idx)) return;
     setSelected(idx);
     setShowExplanation(true);
-    const correct = idx === q.answer;
+    const correct = idx === currentQ.answer;
     const timeMs = Date.now() - startTime.current;
 
-    logAnswer(sectionId, q.type || q.topic || '', q.id, q.question, String(q.answer), String(idx), correct, true, timeMs);
-
-    const newScore = { ...sessionScore, total: sessionScore.total + 1, correct: sessionScore.correct + (correct ? 1 : 0) };
-    setSessionScore(newScore);
+    if (phase === 'practice') {
+      logAnswer(
+        topicId, currentQ.id, currentQ.question || currentQ.scenario || '',
+        String(currentQ.answer), String(idx), correct, true, timeMs
+      );
+      setPracticeScore(s => ({ total: s.total + 1, correct: s.correct + (correct ? 1 : 0) }));
+    } else {
+      // warmup — log but don't count toward main stats
+      setWarmupScore(s => ({ total: s.total + 1, correct: s.correct + (correct ? 1 : 0) }));
+    }
 
     if (correct) {
       const ns = handleCorrectAnswer(true, streak);
@@ -787,7 +759,7 @@ function PracticeScreen({ sectionId }) {
 
   function handleEliminate(idx) {
     if (selected !== null) return;
-    if (idx === q.answer) return; // can't eliminate correct answer (silent)
+    if (idx === currentQ.answer) return;
     if (eliminated.includes(idx)) {
       setEliminated(eliminated.filter(e => e !== idx));
     } else if (eliminated.length < 2) {
@@ -796,234 +768,146 @@ function PracticeScreen({ sectionId }) {
   }
 
   function nextQuestion() {
-    if (qIndex < questions.length - 1) {
-      setQIndex(qIndex + 1);
-      setSelected(null);
-      setShowExplanation(false);
-      setEliminated([]);
-      startTime.current = Date.now();
+    if (phase === 'warmup') {
+      if (warmupIndex < warmups.length - 1) {
+        setWarmupIndex(warmupIndex + 1);
+        setSelected(null);
+        setShowExplanation(false);
+        setEliminated([]);
+        startTime.current = Date.now();
+      } else {
+        setPhase('practice');
+        setSelected(null);
+        setShowExplanation(false);
+        setEliminated([]);
+        startTime.current = Date.now();
+      }
     } else {
-      setDone(true);
+      if (practiceIndex < allItems.length - 1) {
+        setPracticeIndex(practiceIndex + 1);
+        setSelected(null);
+        setShowExplanation(false);
+        setEliminated([]);
+        startTime.current = Date.now();
+      } else {
+        setPhase('done');
+        if (!progress.topicsCompleted.includes(topicId)) {
+          markTopicCompleted(topicId);
+        }
+      }
     }
   }
 
-  if (done) {
-    const accuracy = sessionScore.total > 0 ? Math.round((sessionScore.correct / sessionScore.total) * 100) : 0;
-    const message = accuracy >= 90 ? 'Outstanding! You crushed it!'
-      : accuracy >= 75 ? 'Great work! You\'re getting strong here.'
-      : accuracy >= 60 ? 'Good effort. Keep practicing to build your score.'
-      : 'This section needs more practice. Come back soon!';
+  // ─── LESSON PHASE ───
+  if (phase === 'lesson') {
+    const sec = topic.lesson.sections[lessonIndex];
+    const isLast = lessonIndex >= topic.lesson.sections.length - 1;
     return (
-      <div className="screen complete-screen">
-        <div className="complete-card">
-          <div className="complete-icon">{accuracy >= 75 ? '🎉' : accuracy >= 60 ? '💪' : '📚'}</div>
-          <h2>Section Complete!</h2>
-          <p className="complete-name">{section.name}</p>
-          <div className="complete-stats">
-            <div className="complete-score">{sessionScore.correct}/{sessionScore.total}</div>
-            <div className="complete-accuracy" style={{ color: accuracy >= 75 ? 'var(--correct)' : accuracy >= 60 ? 'var(--accent)' : 'var(--wrong)' }}>
-              {accuracy}%
-            </div>
+      <div className="screen lesson-screen">
+        <div className="screen-header">
+          <button className="back-btn" onClick={() => setScreen('topics')}>← All Types</button>
+          <h2>{topic.name}</h2>
+        </div>
+        <div className="lesson-container">
+          <div className="lesson-progress">
+            {topic.lesson.sections.map((_, i) => (
+              <div key={i} className={`slide-dot ${i === lessonIndex ? 'active' : ''} ${i < lessonIndex ? 'done' : ''}`} />
+            ))}
           </div>
-          <p className="complete-message">{message}</p>
-          <div className="complete-actions">
-            <button className="secondary-btn" onClick={() => {
-              setDone(false);
-              setQIndex(0);
-              setSelected(null);
-              setShowExplanation(false);
-              setEliminated([]);
-              setSessionScore({ total: 0, correct: 0 });
-              setStreakLocal(0);
-            }}>Try Again</button>
-            <button className="primary-btn" onClick={() => setScreen('practice')}>Back to Sections</button>
+          <div className="lesson-content">
+            <h3 className="lesson-heading">{sec.heading}</h3>
+            <p className="lesson-body" style={{ whiteSpace: 'pre-wrap' }}>{sec.body}</p>
+            {sec.example && (
+              <div className="lesson-example">
+                <div className="lesson-example-label">Example</div>
+                <pre className="lesson-example-text">{sec.example}</pre>
+              </div>
+            )}
+          </div>
+          <div className="slide-nav">
+            {lessonIndex > 0 && (
+              <button className="secondary-btn" onClick={() => setLessonIndex(lessonIndex - 1)}>Back</button>
+            )}
+            {!isLast ? (
+              <button className="primary-btn" onClick={() => setLessonIndex(lessonIndex + 1)}>Next</button>
+            ) : (
+              <button className="primary-btn" onClick={startPractice}>
+                {warmups.length > 0 ? 'Start Easy Warmups' : 'Start Practice'}
+              </button>
+            )}
           </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="screen practice-screen">
-      <div className="screen-header">
-        <button className="back-btn" onClick={() => setScreen('practice')}>← Back</button>
-        <h2>{section.name}</h2>
-        <span className="q-counter">{qIndex + 1}/{questions.length}</span>
-      </div>
-      <div className="question-progress">
-        <div className="question-progress-fill" style={{ width: `${((qIndex + 1) / questions.length) * 100}%` }} />
-      </div>
-      <div className="score-bar">
-        <span>{sessionScore.correct} correct</span>
-        <span className="score-accuracy">
-          {sessionScore.total > 0 ? Math.round((sessionScore.correct / sessionScore.total) * 100) : 0}%
-        </span>
-      </div>
+  // ─── WARMUP / PRACTICE PHASE ───
+  if (phase === 'warmup' || phase === 'practice') {
+    const isWarmup = phase === 'warmup';
+    const total = isWarmup ? warmups.length : allItems.length;
+    const idx = isWarmup ? warmupIndex : practiceIndex;
+    const score = isWarmup ? warmupScore : practiceScore;
+    const passageText = !isWarmup && currentQ.passageText;
+    const passageTitle = !isWarmup && currentQ.passageTitle;
 
-      <div className="question-container">
-        {q.context && <div className="question-context">{q.context}</div>}
-        <p className="question-text">{q.question}</p>
+    // Use wrong-answer specific explanation if available
+    const wrongExp = !isWarmup && currentQ.wrongExplanations && currentQ.wrongExplanations[selected];
+    const explanationToShow = (selected !== currentQ.answer && wrongExp)
+      ? `${wrongExp}\n\n→ Correct: ${currentQ.explanation}`
+      : currentQ.explanation;
 
-        <div className="choices">
-          {q.choices.map((choice, i) => (
-            <div key={i} className="choice-row">
-              <button
-                className={`choice-btn ${
-                  eliminated.includes(i) ? 'eliminated' : ''
-                } ${
-                  selected !== null
-                    ? i === q.answer
-                      ? 'correct'
-                      : i === selected
-                        ? 'wrong'
-                        : 'dimmed'
-                    : ''
-                }`}
-                onClick={() => handleSelect(i)}
-                disabled={selected !== null || eliminated.includes(i)}
-              >
-                <span className="choice-letter">{String.fromCharCode(65 + i)}</span>
-                <span className="choice-text">{choice}</span>
-              </button>
-              {selected === null && !eliminated.includes(i) && (
-                <button
-                  className="eliminate-btn"
-                  onClick={(e) => { e.stopPropagation(); handleEliminate(i); }}
-                  title="Eliminate this choice"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-          ))}
+    return (
+      <div className="screen practice-screen">
+        <div className="screen-header">
+          <button className="back-btn" onClick={() => setScreen('topics')}>← All Types</button>
+          <h2>
+            {topic.name}
+            {isWarmup && <span className="phase-tag warmup-tag"> · WARMUP</span>}
+          </h2>
+          <span className="q-counter">{idx + 1}/{total}</span>
+        </div>
+        <div className="question-progress">
+          <div className="question-progress-fill" style={{ width: `${((idx + 1) / total) * 100}%` }} />
+        </div>
+        <div className="score-bar">
+          <span>{score.correct} correct</span>
+          <span className="score-accuracy">
+            {score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0}%
+          </span>
         </div>
 
-        {selected === null && eliminated.length > 0 && (
-          <div className="eliminate-hint">
-            {eliminated.length} eliminated — {4 - eliminated.length} remaining ({Math.round(100 / (4 - eliminated.length))}% chance!)
-          </div>
-        )}
-
-        {showExplanation && (
-          <div className={`explanation ${selected === q.answer ? 'correct' : 'wrong'}`}>
-            <div className="explanation-icon">{selected === q.answer ? '✓' : '✗'}</div>
-            <p>{q.explanation}</p>
-            <button className="primary-btn" onClick={nextQuestion}>
-              {qIndex < questions.length - 1 ? 'Next Question' : 'Finish Section'}
+        {passageText && (
+          <div className="reading-layout">
+            <button
+              className="toggle-passage-btn"
+              onClick={() => setShowPassage(!showPassage)}
+            >
+              {showPassage ? 'Hide Passage' : 'Show Passage'}
             </button>
-          </div>
-        )}
-      </div>
-
-      {streak >= 3 && (
-        <div className="streak-display">
-          {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {getStreakMessage(streak)}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Reading Comprehension Screen ───
-function ReadingScreen({ passageIndex }) {
-  const { setScreen, handleCorrectAnswer, handleWrongAnswer, logAnswer } = useApp();
-  const passages = READING_PASSAGES;
-  const passage = passages[passageIndex];
-  const [qIndex, setQIndex] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showExplanation, setShowExplanation] = useState(false);
-  const [streak, setStreakLocal] = useState(0);
-  const [score, setScore] = useState({ total: 0, correct: 0 });
-  const [showPassage, setShowPassage] = useState(true);
-  const [eliminated, setEliminated] = useState([]);
-  const startTime = useRef(Date.now());
-
-  if (!passage) return null;
-
-  const q = passage.questions[qIndex];
-
-  function handleSelect(idx) {
-    if (selected !== null) return;
-    if (eliminated.includes(idx)) return;
-    setSelected(idx);
-    setShowExplanation(true);
-    const correct = idx === q.answer;
-    const timeMs = Date.now() - startTime.current;
-
-    logAnswer('reading', passage.id, q.id, q.question, String(q.answer), String(idx), correct, true, timeMs);
-
-    const newScore = { ...score, total: score.total + 1, correct: score.correct + (correct ? 1 : 0) };
-    setScore(newScore);
-
-    if (correct) {
-      const ns = handleCorrectAnswer(true, streak);
-      setStreakLocal(ns);
-    } else {
-      handleWrongAnswer();
-      setStreakLocal(0);
-    }
-  }
-
-  function handleEliminate(idx) {
-    if (selected !== null) return;
-    if (idx === q.answer) return;
-    if (eliminated.includes(idx)) {
-      setEliminated(eliminated.filter(e => e !== idx));
-    } else if (eliminated.length < 2) {
-      setEliminated([...eliminated, idx]);
-    }
-  }
-
-  function nextQuestion() {
-    if (qIndex < passage.questions.length - 1) {
-      setQIndex(qIndex + 1);
-      setSelected(null);
-      setShowExplanation(false);
-      setEliminated([]);
-      startTime.current = Date.now();
-    } else if (passageIndex < passages.length - 1) {
-      setScreen(`reading:${passageIndex + 1}`);
-    } else {
-      setScreen('practice');
-    }
-  }
-
-  return (
-    <div className="screen reading-screen">
-      <div className="screen-header">
-        <button className="back-btn" onClick={() => setScreen('practice')}>← Back</button>
-        <h2>Reading: {passage.title}</h2>
-        <span className="q-counter">Q{qIndex + 1}/{passage.questions.length}</span>
-      </div>
-
-      <div className="reading-layout">
-        <button
-          className="toggle-passage-btn"
-          onClick={() => setShowPassage(!showPassage)}
-        >
-          {showPassage ? 'Hide Passage' : 'Show Passage'}
-        </button>
-
-        {showPassage && (
-          <div className="passage-container">
-            {passage.text.split('\n\n').map((para, i) => (
-              <p key={i} className="passage-para">{para}</p>
-            ))}
+            {showPassage && (
+              <div className="passage-container">
+                <div className="passage-title">{passageTitle}</div>
+                {passageText.split('\n\n').map((para, i) => (
+                  <p key={i} className="passage-para">{para}</p>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
         <div className="question-container">
-          <p className="question-text">{q.question}</p>
+          {currentQ.context && <div className="question-context">{currentQ.context}</div>}
+          <p className="question-text" style={{ whiteSpace: 'pre-wrap' }}>{currentQ.question || currentQ.scenario}</p>
 
           <div className="choices">
-            {q.choices.map((choice, i) => (
+            {currentQ.choices.map((choice, i) => (
               <div key={i} className="choice-row">
                 <button
                   className={`choice-btn ${
                     eliminated.includes(i) ? 'eliminated' : ''
                   } ${
                     selected !== null
-                      ? i === q.answer
+                      ? i === currentQ.answer
                         ? 'correct'
                         : i === selected
                           ? 'wrong'
@@ -1040,7 +924,7 @@ function ReadingScreen({ passageIndex }) {
                   <button
                     className="eliminate-btn"
                     onClick={(e) => { e.stopPropagation(); handleEliminate(i); }}
-                    title="Eliminate"
+                    title="Cross out this choice"
                   >
                     ✕
                   </button>
@@ -1051,32 +935,70 @@ function ReadingScreen({ passageIndex }) {
 
           {selected === null && eliminated.length > 0 && (
             <div className="eliminate-hint">
-              {eliminated.length} eliminated — {4 - eliminated.length} remaining
+              {eliminated.length} crossed out — {4 - eliminated.length} remaining ({Math.round(100 / (4 - eliminated.length))}% chance!)
             </div>
           )}
 
           {showExplanation && (
-            <div className={`explanation ${selected === q.answer ? 'correct' : 'wrong'}`}>
-              <div className="explanation-icon">{selected === q.answer ? '✓' : '✗'}</div>
-              <p>{q.explanation}</p>
+            <div className={`explanation ${selected === currentQ.answer ? 'correct' : 'wrong'}`}>
+              <div className="explanation-icon">{selected === currentQ.answer ? '✓' : '✗'}</div>
+              <p style={{ whiteSpace: 'pre-wrap' }}>{explanationToShow}</p>
               <button className="primary-btn" onClick={nextQuestion}>
-                {qIndex < passage.questions.length - 1
+                {idx < total - 1
                   ? 'Next Question'
-                  : passageIndex < passages.length - 1
-                    ? 'Next Passage'
-                    : 'Finish'
-                }
+                  : (isWarmup ? 'Start Real Practice' : 'Finish')}
               </button>
             </div>
           )}
         </div>
-      </div>
 
-      {streak >= 3 && (
-        <div className="streak-display">
-          {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {getStreakMessage(streak)}
+        {streak >= 3 && (
+          <div className="streak-display">
+            {'🔥'.repeat(Math.min(Math.floor(streak / 5) + 1, 3))} {getStreakMessage(streak)}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ─── DONE PHASE ───
+  const accuracy = practiceScore.total > 0 ? Math.round((practiceScore.correct / practiceScore.total) * 100) : 0;
+  const message = accuracy >= 90 ? 'You\'ve got this question type. Don\'t even worry about it.'
+    : accuracy >= 75 ? 'Strong. You know the moves. Keep them sharp.'
+    : accuracy >= 60 ? 'Solid foundation. One more pass through this type would help.'
+    : 'Worth coming back to — review the lesson and try again.';
+  const isFirstTime = !progress.topicsCompleted.includes(topicId);
+
+  return (
+    <div className="screen complete-screen">
+      {isFirstTime && <Confetti />}
+      <div className="complete-card">
+        <div className="complete-icon">{accuracy >= 75 ? '🎉' : accuracy >= 60 ? '💪' : '📚'}</div>
+        <h2>Type Complete!</h2>
+        <p className="complete-name">{topic.name}</p>
+        <div className="complete-stats">
+          <div className="complete-score">{practiceScore.correct}/{practiceScore.total}</div>
+          <div className="complete-accuracy" style={{ color: accuracy >= 75 ? 'var(--correct)' : accuracy >= 60 ? 'var(--accent)' : 'var(--wrong)' }}>
+            {accuracy}%
+          </div>
         </div>
-      )}
+        <p className="complete-message">{message}</p>
+        <div className="complete-actions">
+          <button className="secondary-btn" onClick={() => {
+            setPhase('lesson');
+            setLessonIndex(0);
+            setWarmupIndex(0);
+            setPracticeIndex(0);
+            setSelected(null);
+            setShowExplanation(false);
+            setEliminated([]);
+            setWarmupScore({ total: 0, correct: 0 });
+            setPracticeScore({ total: 0, correct: 0 });
+            setStreakLocal(0);
+          }}>Try Again</button>
+          <button className="primary-btn" onClick={() => setScreen('topics')}>Pick Another Type</button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1112,13 +1034,4 @@ function Confetti() {
       ))}
     </div>
   );
-}
-
-// ─── Utility ───
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
 }
