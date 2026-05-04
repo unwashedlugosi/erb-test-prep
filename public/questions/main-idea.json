@@ -1,0 +1,164 @@
+{
+  "id": "main-idea",
+  "sectionId": "reading",
+  "name": "Reading: Main Idea",
+  "passages": [
+    {
+      "id": "mi-p1",
+      "title": "The Planets",
+      "text": "Our solar system contains eight planets, each with unique characteristics. The four inner planets — Mercury, Venus, Earth, and Mars — are called terrestrial planets because they have solid, rocky surfaces. The four outer planets — Jupiter, Saturn, Uranus, and Neptune — are called gas giants because they are made mostly of gases.\n\nEarth and Jupiter could hardly be more different. Earth has a solid surface where people can walk, liquid water in its oceans, and an atmosphere that supports life. Jupiter, on the other hand, has no solid surface at all. It is a swirling mass of gases with storms larger than our entire planet.\n\nDespite these differences, both planets share some similarities. Both have magnetic fields that protect them from harmful solar radiation. Both have moons. And both orbit the same star.",
+      "questions": [
+        {"id":"mi-1","question":"What is the main idea of paragraph 2?","choices":["Earth has a solid surface and water","Jupiter has more gravity than Earth","Jupiter is more interesting to study","Earth and Jupiter have very different physical properties"],"answer":3,"explanation":"Paragraph 2 lists differences between Earth and Jupiter.","wrongExplanations":{"0":"TOO NARROW.","1":"OFF-TOPIC.","2":"OFF-TOPIC."}},
+        {"id":"mi-2","question":"What is the main idea of the WHOLE passage?","choices":["Jupiter has many moons","Planets are different but share some traits","All planets are gas giants","Earth is the only special planet"],"answer":1,"explanation":"The passage covers BOTH differences and similarities.","wrongExplanations":{"0":"TOO NARROW.","2":"Wrong — only outer planets are gas giants.","3":"Doesn't fit the passage tone."}}
+      ]
+    },
+    {
+      "id": "mi-p2",
+      "title": "Pointillism",
+      "text": "In 1886, Georges Seurat shocked the art world with Pointillism — placing tiny dots of pure color side by side on canvas. From a distance, the eye blends these dots into colors that shimmer.\n\nNot everyone appreciated this. Critics called it mechanical and tedious, claiming it removed emotion from painting.\n\nDespite criticism, Seurat's work influenced generations of artists. His ideas about color theory became foundational in art education. Today, his paintings hang in major museums.",
+      "questions": [
+        {"id":"mi-3","question":"What is the main idea of the passage?","choices":["Seurat lived in France","Critics didn't like Pointillism","Pointillism was controversial but became influential","All paintings should use dots"],"answer":2,"explanation":"The passage covers BOTH the criticism AND the influence.","wrongExplanations":{"0":"TOO NARROW.","1":"TOO NARROW — only paragraph 2.","3":"OFF-TOPIC — not telling painters what to do."}}
+      ]
+    },
+    {
+      "id": "mi-p3",
+      "title": "Octopus Brains",
+      "text": "Octopuses have nine brains. One central brain coordinates the body, but each of its eight arms also has its own small brain.\n\nThis means each arm can solve problems on its own. Scientists have watched octopus arms open jars, untie knots, and even taste food independently.\n\nThis unusual nervous system gives octopuses special abilities — changing color in less than a second, slipping through tiny cracks, and using tools.\n\nStudying octopus brains may help us understand intelligence in completely different ways than studying mammals.",
+      "questions": [
+        {"id":"mi-4","question":"What is the main idea of the WHOLE passage?","choices":["Octopuses change color quickly","Octopuses have unusual brains and abilities","Octopus arms can survive on their own","Coconut shells are good shelters"],"answer":1,"explanation":"Covers brains AND abilities AND scientific interest.","wrongExplanations":{"0":"TOO NARROW.","2":"TOO NARROW.","3":"Not in this passage."}},
+        {"id":"mi-5","question":"What is the main idea of paragraph 2 specifically?","choices":["Octopuses are interesting","Each octopus arm acts independently","Scientists watch octopuses","Octopuses can taste"],"answer":1,"explanation":"Paragraph 2 is about arms acting on their own.","wrongExplanations":{"0":"TOO BROAD.","2":"TOO NARROW.","3":"TOO NARROW."}}
+      ]
+    },
+    {
+      "id": "mi-p4",
+      "title": "Why Bees Matter",
+      "text": "Honeybees are one of the most important insects on Earth. They pollinate about one-third of all crops humans eat. Without bees, foods like apples, almonds, blueberries, and broccoli would be much harder to grow.\n\nWhen a bee lands on a flower to drink nectar, pollen sticks to its body. As it flies to the next flower, it carries that pollen with it. This is what allows plants to make seeds.\n\nUnfortunately, bee populations are dropping. Diseases, pesticides, and loss of wildflowers are all making it harder for bees to survive. Scientists are working to find solutions before it's too late.",
+      "questions": [
+        {"id":"mi-6","question":"What is the main idea of the whole passage?","choices":["Bees love nectar","Bees are important for our food but their numbers are dropping","Apples come from trees","Pesticides are bad"],"answer":1,"explanation":"Covers importance AND decline together.","wrongExplanations":{"0":"TOO NARROW.","2":"OFF-TOPIC.","3":"TOO NARROW — only one threat."}},
+        {"id":"mi-7","question":"What is the main idea of paragraph 2?","choices":["Bees fly fast","How bees pollinate flowers","Pollen is yellow","Bees only like one flower"],"answer":1,"explanation":"Paragraph 2 explains the pollination process.","wrongExplanations":{"0":"OFF-TOPIC.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}},
+        {"id":"mi-8","question":"What is paragraph 3 mostly about?","choices":["Bee diseases","Reasons bees are disappearing","How long bees live","Bee homes"],"answer":1,"explanation":"Paragraph 3 lists threats to bees.","wrongExplanations":{"0":"TOO NARROW — one threat.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p5",
+      "title": "The Library of Alexandria",
+      "text": "Long ago, in ancient Egypt, the city of Alexandria was home to the most famous library in the world. Built more than 2,000 years ago, the Library of Alexandria held hundreds of thousands of scrolls — the books of that time.\n\nScholars from many countries traveled to Alexandria to study. They could read works on math, science, history, and poetry. Some say the library held copies of every book that existed.\n\nSadly, fires and wars destroyed the library over the centuries. Most of its scrolls were lost forever. Historians still wonder what knowledge disappeared with it.",
+      "questions": [
+        {"id":"mi-9","question":"What is the main idea of the passage?","choices":["Alexandria was hot","The Library of Alexandria was a great center of learning that was lost","Scrolls are old","Egyptians wrote a lot"],"answer":1,"explanation":"Covers the library's greatness AND its destruction.","wrongExplanations":{"0":"OFF-TOPIC.","2":"TOO NARROW.","3":"TOO NARROW."}},
+        {"id":"mi-10","question":"What is paragraph 2 mostly about?","choices":["What was inside the library","Scholars traveling","Egyptian poetry","Free books"],"answer":0,"explanation":"Paragraph 2 describes who visited and what they could read — the library's contents/users.","wrongExplanations":{"1":"PARTIAL.","2":"TOO NARROW.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p6",
+      "title": "How a Lighthouse Works",
+      "text": "Lighthouses have guided ships for thousands of years. Their job is simple: warn sailors that land or rocks are nearby, especially at night or in fog.\n\nA lighthouse uses a powerful light at the top of a tall tower. The light flashes in a special pattern — for example, three quick flashes, then a pause. Each lighthouse has its own pattern, so sailors know which lighthouse they are seeing.\n\nLong ago, lighthouses used fires or oil lamps. Today, they use electric bulbs and computers. Some lighthouses have no keepers anymore — they run on their own.",
+      "questions": [
+        {"id":"mi-11","question":"What is the main idea of the passage?","choices":["Lighthouses use fire","Lighthouses guide ships using flashing patterns of light","Sailors are smart","All lighthouses have keepers"],"answer":1,"explanation":"Covers purpose AND how they work (patterns, light).","wrongExplanations":{"0":"TOO NARROW (and outdated).","2":"OFF-TOPIC.","3":"WRONG — passage says some don't anymore."}},
+        {"id":"mi-12","question":"What is paragraph 2 about?","choices":["How lighthouses signal sailors","How tall they are","Where they're built","Why ships sink"],"answer":0,"explanation":"Paragraph 2 explains the flash pattern signaling system.","wrongExplanations":{"1":"OFF-TOPIC.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p7",
+      "title": "Coral Reefs",
+      "text": "Coral reefs are sometimes called 'rainforests of the sea' because they support an incredible variety of ocean life. Though reefs cover less than 1% of the ocean floor, they are home to about 25% of all marine species.\n\nReefs are built by tiny animals called coral polyps. Over thousands of years, polyps build hard skeletons that grow into massive structures. Fish, turtles, sharks, and many other creatures live in and around these structures.\n\nToday, coral reefs face serious problems. Warmer ocean temperatures cause coral 'bleaching,' which can kill the coral. Pollution and overfishing add to the threats. Many scientists worry that reefs may not survive without major changes.",
+      "questions": [
+        {"id":"mi-13","question":"What is the main idea of the whole passage?","choices":["Coral reefs are colorful","Coral reefs are important ocean homes that are now threatened","Sharks live in reefs","Polyps are small"],"answer":1,"explanation":"Covers importance AND threats — both are central.","wrongExplanations":{"0":"OFF-TOPIC.","2":"TOO NARROW.","3":"TOO NARROW."}},
+        {"id":"mi-14","question":"What is paragraph 1 mostly about?","choices":["Reef colors","How much marine life lives in reefs","Underwater oxygen","Salt water"],"answer":1,"explanation":"Paragraph 1 says 25% of marine species live there.","wrongExplanations":{"0":"OFF-TOPIC.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}},
+        {"id":"mi-15","question":"What is paragraph 3 about?","choices":["Why reefs are colorful","Threats facing reefs","How reefs are formed","Tropical vacations"],"answer":1,"explanation":"Paragraph 3 lists bleaching, pollution, overfishing.","wrongExplanations":{"0":"OFF-TOPIC.","2":"That's paragraph 2.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p8",
+      "title": "The Wright Brothers",
+      "text": "Wilbur and Orville Wright owned a bicycle shop in Ohio in the late 1800s. But their real passion was something else: they dreamed of building a flying machine.\n\nAt the time, no one had ever built a powered airplane that could carry a person. Many tried and failed. The Wright brothers studied bird flight, designed wings, and built models. They tested everything carefully.\n\nIn December 1903, on a windy beach in North Carolina, their work paid off. Their airplane, the Wright Flyer, flew 120 feet in 12 seconds. It doesn't sound like much today, but it changed the world. From that small flight came the entire age of aviation.",
+      "questions": [
+        {"id":"mi-16","question":"What is the main idea of the passage?","choices":["The Wrights owned a bike shop","Birds were their inspiration","The Wright brothers were the first to build a powered airplane","Aviation began in 1903"],"answer":2,"explanation":"The whole passage tells the story of their first powered flight.","wrongExplanations":{"0":"TOO NARROW.","1":"TOO NARROW.","3":"TOO NARROW — true but doesn't capture the brothers."}},
+        {"id":"mi-17","question":"What is paragraph 2 about?","choices":["Their bike shop","Their preparation and study before flying","The wind in North Carolina","Why birds fly"],"answer":1,"explanation":"Paragraph 2 covers their study and testing.","wrongExplanations":{"0":"That's paragraph 1.","2":"OFF-TOPIC.","3":"TOO NARROW."}}
+      ]
+    },
+    {
+      "id": "mi-p9",
+      "title": "Earthquakes",
+      "text": "Earthquakes happen when huge sections of the Earth's crust suddenly slip past each other. The crust is made of giant pieces called tectonic plates, which are always moving slowly. Sometimes they get stuck. When they finally slip, the energy released causes the ground to shake.\n\nMost earthquakes are too small to feel. But powerful earthquakes can damage buildings, break roads, and even cause tsunamis. Scientists called seismologists study earthquakes to understand them better.\n\nWhile we cannot prevent earthquakes, we can prepare. Buildings in earthquake zones are designed to sway without falling. Schools practice 'drop, cover, and hold on' drills. These efforts save lives.",
+      "questions": [
+        {"id":"mi-18","question":"What is the main idea of the passage?","choices":["Earthquakes are scary","Earthquakes — what they are, what they do, and how we prepare","Tsunamis are big waves","Buildings can fall down"],"answer":1,"explanation":"Covers cause, effect, and preparation — all three paragraphs.","wrongExplanations":{"0":"OFF-TOPIC opinion.","2":"TOO NARROW.","3":"TOO NARROW."}},
+        {"id":"mi-19","question":"What does paragraph 1 mainly explain?","choices":["What causes earthquakes","Why buildings fall","How big earthquakes are","Where they happen"],"answer":0,"explanation":"Paragraph 1 explains tectonic plates causing earthquakes.","wrongExplanations":{"1":"That's effect, not cause.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}},
+        {"id":"mi-20","question":"What is paragraph 3 about?","choices":["How small earthquakes are","Earthquake preparation","Tsunamis","Seismologists"],"answer":1,"explanation":"Paragraph 3 talks about how we prepare.","wrongExplanations":{"0":"OFF-TOPIC.","2":"That's paragraph 2.","3":"That's paragraph 2."}}
+      ]
+    },
+    {
+      "id": "mi-p10",
+      "title": "Penguins",
+      "text": "Penguins are unusual birds — they cannot fly. But they are excellent swimmers. Their wings have evolved into flippers that work like fins underwater. A penguin can swim faster than most fish.\n\nMost penguins live in the Southern Hemisphere, especially Antarctica. They survive bitter cold thanks to two layers: thick feathers on the outside and a layer of fat called blubber underneath.\n\nPenguins live in large groups called colonies. Some colonies have hundreds of thousands of birds. They huddle together to stay warm in winter, taking turns moving from the cold edges to the warm center.",
+      "questions": [
+        {"id":"mi-21","question":"What is the main idea of the passage?","choices":["Penguins can swim","How penguins live and survive","Antarctica is cold","Birds have feathers"],"answer":1,"explanation":"Covers swimming, surviving cold, and colonies.","wrongExplanations":{"0":"TOO NARROW.","2":"TOO NARROW.","3":"TOO BROAD."}},
+        {"id":"mi-22","question":"Paragraph 2 is mainly about what?","choices":["Where penguins live and how they stay warm","How penguins swim","How fast they swim","What they eat"],"answer":0,"explanation":"Paragraph 2 covers location AND warmth (feathers, blubber).","wrongExplanations":{"1":"That's paragraph 1.","2":"That's paragraph 1.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p11",
+      "title": "The Invention of Paper",
+      "text": "Before paper existed, people wrote on heavy materials: stone, clay tablets, animal skins, and tree bark. None were ideal. Stone was too heavy to carry; bark fell apart; animal skin was expensive.\n\nIn ancient China, around 2,000 years ago, an inventor named Cai Lun figured out how to make paper from wood pulp and old rags. The result was light, cheap, and could be made in large quantities. It changed how people stored and shared information.\n\nThe secret of paper-making spread slowly across the world. It reached Europe a thousand years after Cai Lun's invention. Today, we make billions of pieces of paper every year, but we owe it all to that ancient breakthrough.",
+      "questions": [
+        {"id":"mi-23","question":"What is the main idea of the passage?","choices":["Paper is everywhere","Cai Lun's invention of paper changed how humans share information","Stone is heavy","China is old"],"answer":1,"explanation":"Covers Cai Lun's invention and its impact.","wrongExplanations":{"0":"TOO BROAD.","2":"TOO NARROW.","3":"OFF-TOPIC."}},
+        {"id":"mi-24","question":"Paragraph 1 is mostly about what?","choices":["Heavy materials","What people used before paper, and why each was bad","Stone tablets","Animal hides"],"answer":1,"explanation":"Paragraph 1 lists pre-paper materials and their problems.","wrongExplanations":{"0":"TOO NARROW.","2":"TOO NARROW.","3":"TOO NARROW."}}
+      ]
+    },
+    {
+      "id": "mi-p12",
+      "title": "The Power of Wind",
+      "text": "Wind has been put to work by humans for thousands of years. Ancient sailors used wind to push boats across oceans. Farmers used windmills to grind grain.\n\nToday, wind is used to make electricity. Tall towers called wind turbines have blades that spin in the wind. The spinning powers a generator that creates electricity. The electricity is sent through wires to homes and businesses.\n\nWind is a clean energy source — it doesn't pollute the air or water. But it has limits. Wind doesn't blow all the time. So we still need other energy sources to fill the gaps. Still, wind power is growing fast around the world.",
+      "questions": [
+        {"id":"mi-25","question":"What is the main idea of the whole passage?","choices":["Wind is invisible","Humans have used wind for ages, and now use it to make electricity","Sailors are brave","Turbines are tall"],"answer":1,"explanation":"Covers history and modern uses.","wrongExplanations":{"0":"OFF-TOPIC.","2":"OFF-TOPIC.","3":"TOO NARROW."}},
+        {"id":"mi-26","question":"Paragraph 3 is about what?","choices":["How turbines work","The benefits and limits of wind energy","Wind speed","Old windmills"],"answer":1,"explanation":"Paragraph 3 covers clean energy AND wind not blowing constantly.","wrongExplanations":{"0":"That's paragraph 2.","2":"OFF-TOPIC.","3":"That's paragraph 1."}},
+        {"id":"mi-27","question":"What is paragraph 2 about?","choices":["Old windmills","How modern wind turbines make electricity","Why we need energy","Pollution"],"answer":1,"explanation":"Paragraph 2 explains the modern turbine + generator system.","wrongExplanations":{"0":"That's paragraph 1.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p13",
+      "title": "Volcanoes",
+      "text": "Volcanoes are mountains with a special feature: they can erupt. Deep underground, melted rock called magma builds up. When pressure gets too high, it bursts through the surface.\n\nVolcanic eruptions can be small or huge. Some volcanoes leak lava slowly. Others explode with great force, sending ash, rocks, and gas miles into the air. The biggest eruptions can change weather around the world for years.\n\nDespite their danger, volcanoes also do good. The cooled lava breaks down into rich soil that plants love. Many volcanic islands are some of the most fertile places on Earth.",
+      "questions": [
+        {"id":"mi-28","question":"What is the main idea of the passage?","choices":["Volcanoes are mountains","Volcanoes — how they work, their power, and their benefits","Lava is hot","Ash blocks the sun"],"answer":1,"explanation":"Covers cause, range of eruptions, and benefits.","wrongExplanations":{"0":"TOO NARROW.","2":"TOO NARROW.","3":"TOO NARROW."}},
+        {"id":"mi-29","question":"Paragraph 3 is about what?","choices":["How volcanoes harm","How volcanoes can help","Volcanic islands only","Why magma exists"],"answer":1,"explanation":"Paragraph 3 says soil from volcanoes is rich.","wrongExplanations":{"0":"That's paragraph 2.","2":"TOO NARROW.","3":"That's paragraph 1."}}
+      ]
+    },
+    {
+      "id": "mi-p14",
+      "title": "Why We Sleep",
+      "text": "Every animal sleeps. Even fish. Why? For a long time, scientists weren't sure. But research has revealed several reasons.\n\nFirst, sleep helps the body repair itself. Cells fix damage, growth hormones do their work, and the immune system gets stronger. Without enough sleep, you're more likely to get sick.\n\nSecond, sleep helps the brain. While you sleep, your brain sorts through what you learned that day. Memories get stored. New connections form. Without sleep, you can't focus, can't learn well, and can't remember.\n\nFinally, sleep gives the brain time to clean itself. During sleep, fluid washes through the brain, removing waste from the day. Without this cleanup, brain damage builds up over time.",
+      "questions": [
+        {"id":"mi-30","question":"What is the main idea of the passage?","choices":["All animals sleep","Sleep is important for body and brain in many ways","Brains store memories","Cells need rest"],"answer":1,"explanation":"Covers all benefits of sleep.","wrongExplanations":{"0":"TOO NARROW.","2":"TOO NARROW.","3":"TOO NARROW."}},
+        {"id":"mi-31","question":"Paragraph 2 is mainly about what?","choices":["Body repair during sleep","Brain memory","Sleep cleaning","Why animals sleep"],"answer":0,"explanation":"Paragraph 2 covers cells, hormones, immune system.","wrongExplanations":{"1":"That's paragraph 3.","2":"That's paragraph 4.","3":"That's paragraph 1."}},
+        {"id":"mi-32","question":"What does paragraph 4 explain?","choices":["Why animals sleep","Brain cleaning during sleep","Memory","Body repair"],"answer":1,"explanation":"Paragraph 4 covers the brain washing itself.","wrongExplanations":{"0":"That's paragraph 1.","2":"That's paragraph 3.","3":"That's paragraph 2."}}
+      ]
+    },
+    {
+      "id": "mi-p15",
+      "title": "Black Holes",
+      "text": "A black hole is a place in space where gravity is so strong that nothing — not even light — can escape. Once something falls in, it's gone forever.\n\nBlack holes form when massive stars run out of fuel and collapse on themselves. The star's matter gets crushed into a tiny point with infinite density. The space around it bends in strange ways.\n\nFor a long time, black holes were just a theory. Even Einstein wasn't sure they really existed. But in 2019, scientists captured the first photo of a black hole, proving they're real. The image showed a glowing ring of gas around a dark center — the 'shadow' of the black hole itself.",
+      "questions": [
+        {"id":"mi-33","question":"What is the main idea of the passage?","choices":["Stars are hot","What black holes are, how they form, and proof they exist","Einstein was a scientist","Light is fast"],"answer":1,"explanation":"Covers definition, formation, and the proof.","wrongExplanations":{"0":"OFF-TOPIC.","2":"TOO NARROW.","3":"OFF-TOPIC."}},
+        {"id":"mi-34","question":"Paragraph 3 is about what?","choices":["What Einstein thought","The 2019 photograph of a black hole","Star formation","Light bending"],"answer":1,"explanation":"Paragraph 3 covers the proof: 2019 photo.","wrongExplanations":{"0":"PARTIAL — only one detail.","2":"That's paragraph 2.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "mi-p16",
+      "title": "The Brain's Speed",
+      "text": "Your brain is faster than you might think. When you see something — a ball flying toward you, for example — your brain processes the image in less than 13 thousandths of a second. That's faster than a camera flash.\n\nThis speed lets you react. By the time you 'realize' you've seen the ball, your hand may already be moving to catch it. The brain handles the work before you're even conscious of it.\n\nDifferent parts of the brain handle different tasks. The visual cortex sees. The motor cortex moves muscles. The two work together with very little delay. That's why athletes who practice can make split-second moves seem effortless.",
+      "questions": [
+        {"id":"mi-35","question":"What is the main idea of the passage?","choices":["Athletes are fast","The brain processes information incredibly fast","Visual cortex is in the back","Cameras are slow"],"answer":1,"explanation":"All paragraphs are about brain speed.","wrongExplanations":{"0":"TOO NARROW.","2":"TOO NARROW.","3":"OFF-TOPIC."}},
+        {"id":"mi-36","question":"Paragraph 2 mainly explains what?","choices":["What 13ms means","How brain speed lets you react","Why catching is hard","How the visual cortex works"],"answer":1,"explanation":"Paragraph 2 connects speed to reaction.","wrongExplanations":{"0":"That's paragraph 1.","2":"OFF-TOPIC.","3":"That's paragraph 3."}}
+      ]
+    },
+    {
+      "id": "mi-p17",
+      "title": "Forests of the Sea",
+      "text": "Underwater, there are real forests. They are made of giant kelp — a type of seaweed that can grow over 100 feet tall. Kelp forests are found in cool ocean waters along many coastlines.\n\nLike land forests, kelp forests provide food and shelter. Sea otters, fish, crabs, and many other animals live among the swaying stalks. Some animals depend on kelp completely.\n\nKelp grows incredibly fast — sometimes 18 inches a day. It needs sunlight, so it floats up toward the surface. The forest you see is the top of plants anchored far below.",
+      "questions": [
+        {"id":"mi-37","question":"What is the main idea of the passage?","choices":["Kelp grows fast","Kelp forests are large undersea ecosystems","Otters eat clams","Oceans are deep"],"answer":1,"explanation":"All three paragraphs are about kelp forests.","wrongExplanations":{"0":"TOO NARROW.","2":"OFF-TOPIC.","3":"OFF-TOPIC."}},
+        {"id":"mi-38","question":"Paragraph 2 is mainly about what?","choices":["Kelp size","Animals that live in kelp forests","How fast kelp grows","Cold water"],"answer":1,"explanation":"Paragraph 2 lists animals that live there.","wrongExplanations":{"0":"That's paragraph 1.","2":"That's paragraph 3.","3":"OFF-TOPIC."}}
+      ]
+    }
+  ]
+}

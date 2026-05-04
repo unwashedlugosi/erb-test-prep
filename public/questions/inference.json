@@ -1,0 +1,177 @@
+{
+  "id": "inference",
+  "sectionId": "reading",
+  "name": "Reading: Inference",
+  "passages": [
+    {
+      "id": "in-p1",
+      "title": "Underground Railroad",
+      "text": "Harriet Tubman is the most famous conductor of the Underground Railroad. After escaping slavery in 1849, she returned to the South 13 times to lead approximately 70 people to freedom. She traveled at night, following the North Star, and used songs with hidden messages. Despite a $40,000 reward for her capture, she was never caught and never lost a single passenger. The journey was extremely dangerous — escapees walked 10 to 20 miles between stations, faced slave catchers with dogs, and traveled in freezing temperatures.",
+      "questions": [
+        {"id":"in-1","question":"What can you INFER about why Tubman traveled at night?","choices":["She preferred cool temperatures","Slave catchers couldn't see in the dark","She used the North Star to navigate","Both B and C"],"answer":3,"explanation":"Both reasons supported by passage.","wrongExplanations":{"0":"No evidence.","1":"True but not complete.","2":"True but not complete."}},
+        {"id":"in-2","question":"What does \"never lost a single passenger\" suggest about Tubman?","choices":["She helped few people","She was exceptionally skilled","The journey wasn't dangerous","Slave catchers ignored her"],"answer":1,"explanation":"Given the dangers, never losing anyone shows skill.","wrongExplanations":{"0":"Contradicted by ~70 people.","2":"Contradicted by passage.","3":"Contradicted by $40,000 reward."}}
+      ]
+    },
+    {
+      "id": "in-p2",
+      "title": "Monarch Migration",
+      "text": "Monarch butterflies travel up to 3,000 miles from summer homes in the U.S. and Canada to winter roosts in central Mexico. No single butterfly completes the round trip — the monarchs flying south are great-great-grandchildren of those that flew north. Yet they find the exact same trees their ancestors used. Scientists discovered monarchs navigate using the sun's position and Earth's magnetic field. They have an internal compass in their antennae. The migration is now under threat: logging in Mexico has destroyed roosts; herbicides have killed milkweed — the only plant where monarchs lay eggs.",
+      "questions": [
+        {"id":"in-3","question":"Based on the passage, what would MOST LIKELY happen if monarch antennae were damaged?","choices":["They'd fly faster","They'd have trouble navigating to Mexico","They'd stop migrating","They'd use sound to navigate"],"answer":1,"explanation":"Antennae contain the compass.","wrongExplanations":{"0":"No evidence.","2":"TOO FAR.","3":"No mention of sound."}},
+        {"id":"in-4","question":"What can you infer about the threat to the migration?","choices":["Monarchs will go extinct in 10 years","Both their winter homes and breeding plants are at risk","Mexico is to blame","Butterflies will adapt"],"answer":1,"explanation":"Logging + herbicides = both winter and breeding stages threatened.","wrongExplanations":{"0":"TOO FAR — no timeline.","2":"TOO FAR — passage spreads blame.","3":"OPPOSITE — passage says milkweed is the ONLY plant."}}
+      ]
+    },
+    {
+      "id": "in-p3",
+      "title": "The Long Walk Home",
+      "text": "Mei stared at the empty bus stop. 5:47 PM. The last bus was supposed to come at 5:30. She pulled out her phone — battery at 4%. Calling her mom would use the last of the battery, but walking home alone would take 45 minutes. Mei thought about how her mom had been working three jobs since Dad got laid off. Calling now meant Mom leaving work to pick her up — losing wages they couldn't afford to lose. Mei tightened her backpack strap and started walking, taking the route under the streetlights. By the time she reached her front door, her feet ached and her phone had died. \"Why didn't you call?\" her mom asked. Mei just smiled and said the bus was running late.",
+      "questions": [
+        {"id":"in-5","question":"Why did Mei probably walk home instead of calling her mom?","choices":["She wanted exercise","She didn't want her mom to lose work","She didn't know her mom's number","She enjoyed walking at night"],"answer":1,"explanation":"Three jobs, can't afford lost wages.","wrongExplanations":{"0":"No evidence.","2":"Phone worked.","3":"TOO FAR — the choice was hard."}},
+        {"id":"in-6","question":"What can you infer about Mei?","choices":["She fears the dark","She is thoughtful and willing to sacrifice for family","She doesn't like her mom","She is athletic"],"answer":1,"explanation":"Walking 45 minutes alone vs. calling shows sacrifice.","wrongExplanations":{"0":"PARTIAL.","2":"OPPOSITE.","3":"Aching feet doesn't suggest athletic."}},
+        {"id":"in-7","question":"Why did Mei tell her mom \"the bus was running late\"?","choices":["She was too tired","She didn't want her mom to feel guilty","She forgot what happened","She wanted to lie"],"answer":1,"explanation":"Continues protecting her mom.","wrongExplanations":{"0":"PARTIAL.","2":"No evidence.","3":"TOO FAR — protective, not deceptive."}}
+      ]
+    },
+    {
+      "id": "in-p4",
+      "title": "The Forgotten Test",
+      "text": "Jake walked into class and froze. There was a piece of paper on every desk. \"You all studied last night, right?\" Mrs. Hayes said cheerfully. Jake's stomach dropped. He had been at his cousin's birthday all evening — he hadn't even opened his book. He glanced at his best friend Ravi, who gave him a sympathetic shrug. As Mrs. Hayes handed out the test, Jake saw the topic at the top: World War II. They had spent two weeks on this. He had taken notes in class every day. Maybe — just maybe — he could do this. He picked up his pencil.",
+      "questions": [
+        {"id":"in-8","question":"How does Jake feel when he first sees the papers?","choices":["Excited","Scared","Bored","Confused"],"answer":1,"explanation":"\"Stomach dropped\" + \"froze\" = scared.","wrongExplanations":{"0":"OPPOSITE.","2":"Scared, not bored.","3":"He realizes quickly what's happening."}},
+        {"id":"in-9","question":"What can you infer about Ravi?","choices":["He failed the test","He cares about Jake","He was sick","He didn't study either"],"answer":1,"explanation":"Sympathetic shrug = caring response to friend.","wrongExplanations":{"0":"No evidence.","2":"He's there at school.","3":"No evidence."}},
+        {"id":"in-10","question":"Why does Jake think he might be okay at the end?","choices":["He cheated last week","He realized he had paid attention in class","Mrs. Hayes was kind","Ravi will help"],"answer":1,"explanation":"Two weeks on topic, daily notes — he had absorbed material.","wrongExplanations":{"0":"No evidence of cheating.","2":"Doesn't help on a test.","3":"No mention of Ravi helping."}}
+      ]
+    },
+    {
+      "id": "in-p5",
+      "title": "Grandma's Garden",
+      "text": "Every Saturday for as long as Sara could remember, she had visited her grandmother's garden. They would weed, water, and pick vegetables together. Grandma always seemed to know exactly what each plant needed — when it needed water, when it had a bug problem, when it was ready to harvest. \"You'll learn,\" Grandma would say with a smile. This Saturday, Grandma sat in a chair instead of kneeling in the dirt. \"My back doesn't like the work anymore,\" she said. \"Sara, would you do the watering today?\" Sara nodded and picked up the watering can, feeling something heavy in her chest.",
+      "questions": [
+        {"id":"in-11","question":"What can you infer is happening to Grandma?","choices":["She's getting older and slower","She doesn't like gardening anymore","She's trying to teach Sara to be lazy","She's mad at Sara"],"answer":0,"explanation":"\"Back doesn't like the work\" suggests aging body.","wrongExplanations":{"1":"She's still in the garden.","2":"OPPOSITE — she's letting Sara grow.","3":"No evidence."}},
+        {"id":"in-12","question":"What does \"feeling something heavy in her chest\" probably mean?","choices":["Sara is sick","Sara is sad about Grandma","Sara doesn't want to water","Sara has a chest cold"],"answer":1,"explanation":"Sara feels sadness about her grandmother changing.","wrongExplanations":{"0":"No evidence.","2":"She nodded yes.","3":"Too literal."}},
+        {"id":"in-13","question":"What can you infer about Grandma's relationship with Sara?","choices":["They argue often","They are close","They rarely see each other","They don't know each other well"],"answer":1,"explanation":"Every Saturday for years, working together.","wrongExplanations":{"0":"No evidence.","2":"Every Saturday.","3":"They've shared this for years."}}
+      ]
+    },
+    {
+      "id": "in-p6",
+      "title": "The New Student",
+      "text": "Olivia sat at lunch alone. It was her third day at the new school, and she still didn't know anyone. She watched as kids laughed in groups around her. She poked at her food. Then a girl from her math class — Tara — walked over with her tray. \"Mind if I sit?\" Tara asked. Olivia shook her head and felt a small smile creep onto her face. Tara sat down and said, \"I noticed you got that hard problem in math today. I couldn't figure it out.\" \"It was tricky,\" Olivia said. \"Want me to show you how I did it?\"",
+      "questions": [
+        {"id":"in-14","question":"How was Olivia feeling at the start?","choices":["Excited","Lonely","Hungry","Sick"],"answer":1,"explanation":"Sitting alone, watching others, third day, doesn't know anyone.","wrongExplanations":{"0":"OPPOSITE.","2":"\"Poking at food\" = not hungry.","3":"No evidence."}},
+        {"id":"in-15","question":"Why did Tara probably approach Olivia?","choices":["She wanted to make fun of her","She wanted to be friendly","She needed help with math","She wanted Olivia's lunch"],"answer":1,"explanation":"Asking to sit, opening conversation = friendly gesture. Math help is the conversation starter, but the goal is friendship.","wrongExplanations":{"0":"OPPOSITE.","2":"PARTIAL — bigger picture is being friendly.","3":"OFF-TOPIC."}},
+        {"id":"in-16","question":"What does Olivia's \"small smile\" tell you?","choices":["She's annoyed","She's relieved Tara joined her","She's faking","She got the answer right"],"answer":1,"explanation":"Smile after sitting alone = welcomed company.","wrongExplanations":{"0":"OPPOSITE.","2":"No evidence.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "in-p7",
+      "title": "The Lost Dog",
+      "text": "Marcus put up posters all over the neighborhood. \"LOST DOG: Buddy. Brown lab. Last seen Tuesday.\" Three days passed with no calls. Marcus barely ate. He woke up at 3am thinking he heard barking. On the fourth night, the phone rang. \"I think I have your dog,\" a woman said. Marcus drove to her house with shaking hands. When the front door opened, Buddy ran out, wagging his tail wildly. Marcus dropped to his knees and buried his face in the dog's fur. He couldn't speak.",
+      "questions": [
+        {"id":"in-17","question":"How can you infer Marcus felt during the four days?","choices":["Bored","Worried sick","Excited","Angry at Buddy"],"answer":1,"explanation":"Barely eating, waking at 3am, posters everywhere = worry.","wrongExplanations":{"0":"OPPOSITE.","2":"OPPOSITE.","3":"No evidence."}},
+        {"id":"in-18","question":"What does \"He couldn't speak\" at the end suggest?","choices":["He had a sore throat","He was overwhelmed with emotion","He was angry","He fell asleep"],"answer":1,"explanation":"After being so worried, finding Buddy = overwhelmed.","wrongExplanations":{"0":"TOO LITERAL.","2":"OPPOSITE — he buried his face in joy.","3":"OFF-TOPIC."}},
+        {"id":"in-19","question":"What does the woman's call probably mean for her?","choices":["She doesn't know dogs","She is helpful and saw the posters","She wants money","She's scared of dogs"],"answer":1,"explanation":"Saw the posters → called → returned dog. Helpful person.","wrongExplanations":{"0":"She knew it was a dog.","2":"No mention of money.","3":"She kept the dog."}}
+      ]
+    },
+    {
+      "id": "in-p8",
+      "title": "The Audition",
+      "text": "Carmen had been practicing the violin for three months. The school orchestra audition was today. As she walked into the room, she saw three teachers sitting at a long table. \"Whenever you're ready,\" Mr. Liu said kindly. Carmen lifted the violin to her chin. Her hands were shaking. She drew the bow across the strings. The first note came out wrong — sharp and squeaky. She paused, took a deep breath, and started over. This time the music flowed. By the end of her piece, the teachers were nodding. As she walked out, Carmen heard Mr. Liu say to another teacher, \"She's got something.\"",
+      "questions": [
+        {"id":"in-20","question":"How was Carmen feeling at first?","choices":["Bored","Nervous","Tired","Confident"],"answer":1,"explanation":"Shaking hands, three teachers watching = nervous.","wrongExplanations":{"0":"OPPOSITE.","2":"No evidence.","3":"OPPOSITE."}},
+        {"id":"in-21","question":"What does \"She's got something\" probably mean?","choices":["She has a gift","She's funny","She has a cold","She has the wrong sheet music"],"answer":0,"explanation":"\"She's got something\" = recognition of talent.","wrongExplanations":{"1":"OFF-TOPIC.","2":"TOO LITERAL.","3":"She played her piece fine."}},
+        {"id":"in-22","question":"What can you infer about Carmen's three months of practice?","choices":["It was a waste","It paid off","It was forced","It was easy"],"answer":1,"explanation":"After the rough start, music flowed and teachers were impressed.","wrongExplanations":{"0":"OPPOSITE.","2":"No evidence.","3":"Practice is hard work."}}
+      ]
+    },
+    {
+      "id": "in-p9",
+      "title": "The Quiet Library",
+      "text": "Lily loved Saturdays at the public library. She always sat in the same corner, by the window, with a stack of books beside her. The librarian, Mr. Owens, would nod hello and slide a new book onto her stack — always one she hadn't read but might love. He had been doing this since Lily was seven. Now she was twelve. They never said much. They didn't need to. The books said everything.",
+      "questions": [
+        {"id":"in-23","question":"What can you infer about Mr. Owens?","choices":["He doesn't like Lily","He pays attention to Lily's reading","He's a strict librarian","He likes silence"],"answer":1,"explanation":"He picks books for her — knows her tastes.","wrongExplanations":{"0":"OPPOSITE.","2":"No evidence.","3":"PARTIAL — true of all librarians but not the inference."}},
+        {"id":"in-24","question":"What does \"They didn't need to. The books said everything\" suggest?","choices":["They had a deep, quiet friendship through books","They couldn't speak","They argued","They didn't like each other"],"answer":0,"explanation":"Sharing books over years built a wordless bond.","wrongExplanations":{"1":"TOO LITERAL.","2":"OPPOSITE.","3":"OPPOSITE."}}
+      ]
+    },
+    {
+      "id": "in-p10",
+      "title": "The Final Game",
+      "text": "Coach Rivera watched the scoreboard. Down by two with 30 seconds left. He called a timeout. The team huddled around him, sweating, breathing hard. \"I want everyone to know,\" he said quietly, \"that no matter what happens in the next 30 seconds, I'm proud of every one of you. You've worked harder than any team I've coached.\" Marcus looked up. He had expected a strategy talk. Instead, he felt suddenly calm. The team broke the huddle and walked back onto the court.",
+      "questions": [
+        {"id":"in-25","question":"What kind of coach is Rivera?","choices":["Strict and angry","Caring and supportive","Bored","Disappointed"],"answer":1,"explanation":"Tells team he's proud regardless of outcome.","wrongExplanations":{"0":"OPPOSITE.","2":"He cares enough to give the speech.","3":"OPPOSITE."}},
+        {"id":"in-26","question":"Why did Marcus feel \"suddenly calm\"?","choices":["He gave up","The pressure of winning was lifted","He was sleepy","Coach was funny"],"answer":1,"explanation":"Win or lose, the coach is proud — pressure off.","wrongExplanations":{"0":"OPPOSITE — calm is focus, not surrender.","2":"OFF-TOPIC.","3":"Coach was serious."}},
+        {"id":"in-27","question":"What can you infer about the team's likely play?","choices":["They'll quit","They'll play with focus, not panic","They'll lose intentionally","They'll start arguing"],"answer":1,"explanation":"Calm focus → better play.","wrongExplanations":{"0":"OPPOSITE.","2":"No evidence.","3":"No evidence."}}
+      ]
+    },
+    {
+      "id": "in-p11",
+      "title": "The Old House",
+      "text": "Riley walked through the old house her grandmother had left her. Dust covered everything. The floorboards creaked. In the corner sat an old piano, missing a few keys. She sat down on the bench. Her grandmother had played this piano. Riley remembered being small, sitting beside her, watching her hands move across the keys. She pressed one key. It still made a sound — a single, lonely note that filled the empty house.",
+      "questions": [
+        {"id":"in-28","question":"What can you infer Riley is feeling?","choices":["Annoyed at the dust","Nostalgic — remembering her grandmother","Excited to redecorate","Confused"],"answer":1,"explanation":"Memory of grandmother + the lonely note = nostalgia/grief.","wrongExplanations":{"0":"PARTIAL — the dust isn't the focus.","2":"OFF-TOPIC.","3":"She knows what she's feeling."}},
+        {"id":"in-29","question":"What does \"a single, lonely note\" symbolize?","choices":["The piano is broken","The grandmother is gone","Music is sad","Riley can't play"],"answer":1,"explanation":"The single note in an empty house mirrors absence.","wrongExplanations":{"0":"TOO LITERAL.","2":"TOO BROAD.","3":"No evidence."}}
+      ]
+    },
+    {
+      "id": "in-p12",
+      "title": "The Storm",
+      "text": "The wind howled outside as the family huddled in the basement. Their flashlights cast moving shadows on the walls. Eight-year-old Theo squeezed his sister Mia's hand harder. Mia, eleven, knew Theo was scared. She didn't say anything. Instead, she started telling him a story — a silly one about a chicken who became a pirate. Theo laughed despite himself. Above, the storm raged on.",
+      "questions": [
+        {"id":"in-30","question":"What can you infer about Mia?","choices":["She's scared too but hiding it well","She doesn't care about Theo","She's also bored","She thinks the storm is funny"],"answer":0,"explanation":"Telling a calming story while a storm rages = brave for her brother. She likely scared too but staying strong.","wrongExplanations":{"1":"OPPOSITE.","2":"PARTIAL.","3":"Storm rages — not funny."}},
+        {"id":"in-31","question":"Why did Mia tell the silly story?","choices":["She likes pirates","She wanted to make Theo laugh and forget the storm","She was bored","She had nothing else to do"],"answer":1,"explanation":"Distracting an 8-year-old from fear.","wrongExplanations":{"0":"OFF-TOPIC.","2":"PARTIAL.","3":"PARTIAL."}}
+      ]
+    },
+    {
+      "id": "in-p13",
+      "title": "The Surprise Visit",
+      "text": "Aunt Joan stood at the door with two big suitcases and a wide smile. \"I'm here for the weekend!\" she announced. Mom managed a smile, but Sara could see her clenching her jaw. Their guest room was full of boxes from moving. The kitchen was a mess. Mom hadn't slept well in days. Aunt Joan walked past Mom and into the kitchen. \"Oh, you've been busy!\" she chirped. \"Don't worry, I'll fix everything up while I'm here.\"",
+      "questions": [
+        {"id":"in-32","question":"What can you infer about Mom's true feelings?","choices":["She's thrilled","She's stressed and not happy about the visit","She's sleepy","She's angry at Sara"],"answer":1,"explanation":"Clenched jaw, mess, no sleep = stress, not joy.","wrongExplanations":{"0":"OPPOSITE.","2":"PARTIAL — but the bigger feeling is unhappiness.","3":"No evidence."}},
+        {"id":"in-33","question":"What does Aunt Joan probably NOT realize?","choices":["The house is messy","Mom needs help","Mom didn't really want guests right now","Sara is there"],"answer":2,"explanation":"She's cheerful and oblivious to Mom's stress.","wrongExplanations":{"0":"She noticed: \"you've been busy!\"","1":"PARTIAL — she's offering to help.","3":"She came to visit Sara's family."}}
+      ]
+    },
+    {
+      "id": "in-p14",
+      "title": "The Race",
+      "text": "Owen had trained all year for the 5K race. As the runners lined up, his stomach twisted. There must have been 200 people in front of him at the starting line. The whistle blew. They were off. By mile 2, Owen was gasping. Runners were passing him. His legs burned. Then he saw a girl about his age, breathing hard but smiling, ahead of him. She glanced back, gave him a thumbs up, and shouted, \"Almost there!\" Owen pushed through the burn. He didn't win. He didn't even place. But when he crossed the finish line, his arms went up and his face broke into the biggest smile of his life.",
+      "questions": [
+        {"id":"in-34","question":"What can you infer about Owen at mile 2?","choices":["He wanted to win","He wanted to quit","He was speeding up","He was happy"],"answer":1,"explanation":"Gasping, burning legs, being passed = struggle, wanting to stop.","wrongExplanations":{"0":"PARTIAL — but at mile 2 he's struggling.","2":"OPPOSITE.","3":"OPPOSITE."}},
+        {"id":"in-35","question":"How did the girl probably affect Owen?","choices":["She made him angry","She gave him motivation to keep going","She made him fall","She slowed him down"],"answer":1,"explanation":"After her thumbs up, he pushed through.","wrongExplanations":{"0":"OPPOSITE.","2":"No evidence.","3":"He pushed through."}},
+        {"id":"in-36","question":"Why was Owen smiling at the end?","choices":["He won","He finished — and that was a personal victory","He saw friends","His legs stopped hurting"],"answer":1,"explanation":"He didn't win or place but finished what he trained for.","wrongExplanations":{"0":"Passage says he didn't win.","2":"No mention.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "in-p15",
+      "title": "The Letter",
+      "text": "Anna found the envelope in the bottom of her drawer, half-hidden under a stack of old papers. The handwriting on the front was her dad's. She hadn't seen her dad in two years. Her hand trembled slightly as she opened it. \"Dear Anna,\" the letter began. \"I know I haven't been here. I know I've made mistakes. But not a day goes by that I don't think about you...\" Anna sat on her bed and read the letter three times. Then she folded it carefully, put it back in the envelope, and held it against her chest. She didn't know what she felt — angry? Sad? Something else?",
+      "questions": [
+        {"id":"in-37","question":"What can you infer about Anna's relationship with her dad?","choices":["They are very close","They have been distant for a long time","They write often","She lives with him"],"answer":1,"explanation":"Hasn't seen him in 2 years; letter hidden in a drawer.","wrongExplanations":{"0":"OPPOSITE.","1":"They don't.","3":"OPPOSITE."}},
+        {"id":"in-38","question":"What does Anna's complicated feeling at the end suggest?","choices":["She feels nothing","She has many feelings she's still sorting out","She is mad at the dad only","She is overjoyed"],"answer":1,"explanation":"Anger? Sad? Something else? = mixed feelings.","wrongExplanations":{"0":"OPPOSITE.","2":"PARTIAL.","3":"PARTIAL."}}
+      ]
+    },
+    {
+      "id": "in-p16",
+      "title": "The Recital",
+      "text": "Tomas had been practicing for the piano recital for six months. The day arrived. He sat backstage, listening to the others play. They were all good — really good. By the time it was his turn, his fingers felt cold. He walked out, sat down, and looked at the keys. For a moment, he forgot the first note. Panic rose in his chest. Then he closed his eyes and let his hands move. They knew what to do. The music came out smooth and full. Five minutes later, he stood and bowed to applause that seemed to last forever.",
+      "questions": [
+        {"id":"in-39","question":"What can you infer was happening in Tomas's body when his fingers felt cold?","choices":["The room was cold","His body was reacting to nervousness","He had been outside","The piano was cold"],"answer":1,"explanation":"Backstage anxiety = body reaction.","wrongExplanations":{"0":"TOO LITERAL.","2":"No evidence.","3":"TOO LITERAL."}},
+        {"id":"in-40","question":"What does \"his hands knew what to do\" suggest about practice?","choices":["His hands have minds of their own","Practice trained his muscle memory","He had cheat notes","His hands were lucky"],"answer":1,"explanation":"6 months practice = muscle memory.","wrongExplanations":{"0":"TOO LITERAL.","2":"No evidence.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "in-p17",
+      "title": "Saying Goodbye",
+      "text": "The moving truck was loaded. Maya stood in the empty front yard. Her best friend Lin walked up. Neither of them spoke for a long minute. \"I'll text you every day,\" Lin finally said. \"Me too,\" Maya whispered. Lin handed her something small wrapped in tissue paper. \"For the trip.\" Maya unwrapped it slowly. It was a tiny stone — gray, smooth, ordinary. \"From our park. Where we built that fort. So you have a piece of home.\" Maya bit her lip and pulled Lin into a hug.",
+      "questions": [
+        {"id":"in-41","question":"Why did Lin give Maya the stone?","choices":["She had extra stones","She wanted to remember Maya by giving her something meaningful from their friendship","She was returning it","Maya likes rocks"],"answer":1,"explanation":"From their park, where they built memories.","wrongExplanations":{"0":"OFF-TOPIC.","2":"OFF-TOPIC.","3":"PARTIAL — it's about meaning, not preference."}},
+        {"id":"in-42","question":"What does \"Maya bit her lip\" suggest?","choices":["She was about to cry","She was hungry","She was angry","She was thinking"],"answer":0,"explanation":"Biting lip + emotional moment = trying not to cry.","wrongExplanations":{"1":"OFF-TOPIC.","2":"OPPOSITE.","3":"PARTIAL — but the emotional context points to crying."}}
+      ]
+    },
+    {
+      "id": "in-p18",
+      "title": "Late Night Worry",
+      "text": "It was 11pm. Mom usually came home from her shift at 10. Sara checked her phone — no messages. She tried to read but kept reading the same sentence. She got up and looked out the window. No headlights. She sat back down. The clock said 11:08. She tried calling. Voicemail. She walked to the kitchen, opened the fridge, closed it without taking anything. At 11:23, headlights swept across the wall. Sara ran to the door. Mom walked in, looking tired. \"Sorry honey, train was delayed.\" Sara hugged her tightly without saying anything.",
+      "questions": [
+        {"id":"in-43","question":"How was Sara feeling between 10 and 11:23?","choices":["Excited","Worried","Sleepy","Bored"],"answer":1,"explanation":"Re-reading the same sentence, checking the window, calling Mom = worry.","wrongExplanations":{"0":"OPPOSITE.","2":"She was alert and active.","3":"PARTIAL — she was anxious, not bored."}},
+        {"id":"in-44","question":"Why did Sara hug Mom \"without saying anything\"?","choices":["She was angry","She was relieved and emotional","She was sleepy","She forgot what to say"],"answer":1,"explanation":"After worry, hug = relief.","wrongExplanations":{"0":"OPPOSITE.","2":"PARTIAL.","3":"PARTIAL."}}
+      ]
+    }
+  ]
+}

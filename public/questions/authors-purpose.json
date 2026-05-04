@@ -1,0 +1,163 @@
+{
+  "id": "authors-purpose",
+  "sectionId": "reading",
+  "name": "Reading: Author's Purpose",
+  "passages": [
+    {
+      "id": "ap-p1",
+      "title": "Monarch Conservation",
+      "text": "Every fall, millions of monarch butterflies travel up to 3,000 miles from their summer homes to winter roosts in central Mexico.\n\nScientists have discovered that monarchs navigate using the sun's position and Earth's magnetic field. They have an internal compass in their antennae.\n\nThe monarch migration is now under threat. Logging in Mexico's forests has destroyed roosts. Herbicides have killed milkweed — the only plant where monarchs lay eggs. Conservation groups are working to protect forests and encourage planting milkweed.",
+      "questions": [
+        {"id":"ap-1","question":"What is the author's main purpose?","choices":["To persuade readers to plant milkweed","To inform about migration and threats","To entertain","To argue logging be banned"],"answer":1,"explanation":"Mostly facts. INFORM.","wrongExplanations":{"0":"TOO STRONG — milkweed is brief.","2":"No story or humor.","3":"TOO STRONG."}},
+        {"id":"ap-2","question":"Which is OPINION, not fact?","choices":["Monarchs travel up to 3,000 miles","Monarchs are the most beautiful butterflies","Herbicides killed milkweed","Monarchs use the sun"],"answer":1,"explanation":"\"Most beautiful\" = judgment.","wrongExplanations":{"0":"Fact.","2":"Fact.","3":"Fact."}}
+      ]
+    },
+    {
+      "id": "ap-p2",
+      "title": "School Uniforms",
+      "text": "Many schools require uniforms. This trend is one of the most positive changes in education today, and every school should consider adopting it.\n\nUniforms reduce bullying based on clothing brands. They save families money. Most importantly, they help students focus on learning. Schools should embrace this simple change.",
+      "questions": [
+        {"id":"ap-3","question":"What is the author's purpose?","choices":["To inform about dress codes","To entertain","To persuade schools to require uniforms","To describe uniforms"],"answer":2,"explanation":"\"Should consider\" + \"should embrace\" = persuade.","wrongExplanations":{"0":"INFORM is neutral; this takes a side.","1":"No story.","3":"No description."}},
+        {"id":"ap-4","question":"Which is OPINION, not fact?","choices":["A few uniform sets can last all year","Uniforms reduce bullying","This trend is the most positive change","Many schools require uniforms"],"answer":2,"explanation":"\"Most positive\" = judgment.","wrongExplanations":{"0":"Fact.","1":"Fact — measurable.","3":"Fact — countable."}}
+      ]
+    },
+    {
+      "id": "ap-p3",
+      "title": "How Honeybees Dance",
+      "text": "When a honeybee finds food, it returns to the hive and performs a 'waggle dance' to tell other bees where to go. The direction of the waggle tells them which way to fly relative to the sun. The length tells them distance. Scientists have studied this dance for almost 100 years and discovered bees communicate distances of up to several miles with surprising accuracy.",
+      "questions": [
+        {"id":"ap-5","question":"What is the author's purpose?","choices":["Persuade readers to take care of bees","Inform about how bees communicate","Entertain with stories","Argue bees are smarter than humans"],"answer":1,"explanation":"Pure facts about the waggle dance.","wrongExplanations":{"0":"No call to action.","2":"No story.","3":"No comparison."}},
+        {"id":"ap-6","question":"Which sentence is OPINION?","choices":["Bees can communicate distances up to several miles","The dance is one of the most complex forms of communication in animals without language","The bee shakes its body in zigzag","Scientists have studied for 100 years"],"answer":1,"explanation":"\"Most complex\" is a judgment.","wrongExplanations":{"0":"Fact.","2":"Fact — observable.","3":"Fact — verifiable."}}
+      ]
+    },
+    {
+      "id": "ap-p4",
+      "title": "The Best Pet",
+      "text": "Cats make better pets than dogs. They are quieter, cleaner, and don't need to be walked twice a day. Cats can be left home alone for a few days, while dogs cannot. They use a litter box, so you don't have to take them outside in the rain. Anyone who wants a low-maintenance pet should choose a cat.",
+      "questions": [
+        {"id":"ap-7","question":"What is the author's purpose?","choices":["Inform about cats","Persuade readers to choose cats over dogs","Describe cats","Entertain"],"answer":1,"explanation":"\"Cats make better pets than dogs\" + \"should choose a cat\" = persuade.","wrongExplanations":{"0":"INFORM is neutral.","2":"No physical description.","3":"No story."}},
+        {"id":"ap-8","question":"Which is FACT, not opinion?","choices":["Cats make better pets than dogs","Cats are quieter than dogs","Cats are cleaner","Anyone wanting low-maintenance should choose cat"],"answer":1,"explanation":"Cat sounds CAN be measured against dog sounds.","wrongExplanations":{"0":"Opinion.","2":"Subjective.","3":"Opinion."}}
+      ]
+    },
+    {
+      "id": "ap-p5",
+      "title": "The Tongue",
+      "text": "The tongue is one of the strongest muscles in the human body, but it does much more than help you taste. It also helps you speak, swallow, and clean your teeth. Your tongue has about 10,000 taste buds, which can detect five basic tastes: sweet, salty, sour, bitter, and umami. Surprisingly, the tongue does not have separate zones for different tastes — every taste bud can detect every flavor.",
+      "questions": [
+        {"id":"ap-9","question":"What is the author's purpose?","choices":["Entertain","Inform about how the tongue works","Persuade readers to brush more","Describe a fictional tongue"],"answer":1,"explanation":"Facts about anatomy and taste.","wrongExplanations":{"0":"No story.","2":"No call to action.","3":"Real tongue facts."}},
+        {"id":"ap-10","question":"Which is OPINION?","choices":["The tongue has about 10,000 taste buds","Surprisingly, the tongue does not have separate zones","The tongue can detect five basic tastes","Umami is one of the tastes"],"answer":1,"explanation":"\"Surprisingly\" is the author's reaction — opinion.","wrongExplanations":{"0":"Fact.","2":"Fact.","3":"Fact."}}
+      ]
+    },
+    {
+      "id": "ap-p6",
+      "title": "Recess Should Be Longer",
+      "text": "Schools today give kids only 15 or 20 minutes of recess. That's not enough. Studies show that kids who have at least 30 minutes of recess each day do better in math and reading. They also have fewer behavior problems. School boards across the country need to make recess longer. Our kids' health and learning depend on it.",
+      "questions": [
+        {"id":"ap-11","question":"What is the author's purpose?","choices":["Inform about recess history","Entertain","Persuade school boards to extend recess","Describe a recess game"],"answer":2,"explanation":"\"School boards need to make recess longer\" = persuade.","wrongExplanations":{"0":"Not history.","1":"No story.","3":"No description."}},
+        {"id":"ap-12","question":"Which is FACT, not opinion?","choices":["Schools today give 15-20 minutes of recess","Our kids' health depends on it","That's not enough","School boards need to do this"],"answer":0,"explanation":"Schools' actual recess time is verifiable.","wrongExplanations":{"1":"Opinion (debatable).","2":"Opinion.","3":"Opinion (must vs. should)."}}
+      ]
+    },
+    {
+      "id": "ap-p7",
+      "title": "How Trees Grow",
+      "text": "Trees grow taller by adding new wood at the very top, where the branches reach upward. They grow wider by adding new layers of wood underneath the bark. Each year, a tree adds one ring of wood, which is why we can count tree rings to find a tree's age. The widest rings show years with good weather; thin rings show years of drought or stress.",
+      "questions": [
+        {"id":"ap-13","question":"What is the author's purpose?","choices":["Entertain","Inform about tree growth","Persuade readers to plant trees","Argue trees are important"],"answer":1,"explanation":"Facts about how trees grow.","wrongExplanations":{"0":"No story.","2":"No call to action.","3":"No argument."}},
+        {"id":"ap-14","question":"What does paragraph mostly do?","choices":["Tells a story","Explains a process","Argues a point","Asks a question"],"answer":1,"explanation":"Step-by-step explanation = process.","wrongExplanations":{"0":"No characters.","2":"No argument.","3":"No questions."}}
+      ]
+    },
+    {
+      "id": "ap-p8",
+      "title": "Save the Pandas",
+      "text": "Giant pandas are some of the most loved animals on Earth, yet there are only about 1,800 of them left in the wild. Pandas need bamboo forests to survive — and humans are cutting down those forests. We must protect the bamboo forests now. Buy products that don't harm wildlife. Support panda conservation. The future of pandas is in our hands.",
+      "questions": [
+        {"id":"ap-15","question":"What is the author's purpose?","choices":["Inform","Entertain","Persuade readers to support panda conservation","Describe pandas"],"answer":2,"explanation":"\"Buy products...\" + \"Support conservation...\" = persuade.","wrongExplanations":{"0":"Has facts but isn't neutral.","1":"No story.","3":"Brief description but main goal is action."}},
+        {"id":"ap-16","question":"Which is FACT?","choices":["Pandas are the most loved animals","There are about 1,800 pandas in the wild","The future is in our hands","We must protect forests now"],"answer":1,"explanation":"1,800 is verifiable.","wrongExplanations":{"0":"Opinion (\"most loved\").","2":"Opinion (figurative).","3":"Opinion (call to action)."}}
+      ]
+    },
+    {
+      "id": "ap-p9",
+      "title": "Robots in Surgery",
+      "text": "Surgeons today use robots to perform delicate operations. The doctor sits at a control station and moves the robot's arms with hand controls. The robot's tools are smaller than human hands, allowing surgeons to make tinier cuts. This means patients heal faster. The robot also cancels out the natural shaking of human hands, making the procedure safer.",
+      "questions": [
+        {"id":"ap-17","question":"What is the author's purpose?","choices":["Entertain","Inform about robot surgery","Persuade hospitals to buy robots","Argue robots are dangerous"],"answer":1,"explanation":"Facts about how it works and benefits.","wrongExplanations":{"0":"No story.","2":"Notes benefits but doesn't push action.","3":"OPPOSITE — passage shows safety."}}
+      ]
+    },
+    {
+      "id": "ap-p10",
+      "title": "Soda Should Be Banned in Schools",
+      "text": "Sugary soda has no place in schools. Each can contains 10 teaspoons of sugar. Studies show that students who drink soda gain weight, have more cavities, and feel less focused in class. We don't allow alcohol or candy bars in vending machines — why allow soda? Schools must ban soda for the health of our students.",
+      "questions": [
+        {"id":"ap-18","question":"What is the author's purpose?","choices":["Inform about sugar","Persuade schools to ban soda","Entertain","Describe a soda can"],"answer":1,"explanation":"\"Schools must ban...\" = persuade.","wrongExplanations":{"0":"Has facts but takes a side.","2":"No story.","3":"No description."}},
+        {"id":"ap-19","question":"Which is OPINION?","choices":["Each soda has 10 teaspoons of sugar","Sugary soda has no place in schools","Studies show students gain weight","Most schools have vending machines"],"answer":1,"explanation":"\"No place in schools\" = judgment.","wrongExplanations":{"0":"Fact — measurable.","2":"Fact — research-based.","3":"Fact — observable."}}
+      ]
+    },
+    {
+      "id": "ap-p11",
+      "title": "How Glass Is Made",
+      "text": "Glass is made by melting sand at extremely high temperatures — over 2,500°F. The melted sand is then cooled and shaped while still hot. Different ingredients change the glass: adding lead makes crystal; adding metals creates colored glass. Modern glass making uses giant furnaces that operate 24 hours a day.",
+      "questions": [
+        {"id":"ap-20","question":"What is the author's purpose?","choices":["Inform about how glass is made","Persuade readers to make glass","Entertain","Argue glass is the best material"],"answer":0,"explanation":"Facts about the process.","wrongExplanations":{"1":"No call to action.","2":"No story.","3":"No argument."}}
+      ]
+    },
+    {
+      "id": "ap-p12",
+      "title": "We Need More Libraries",
+      "text": "Libraries are not just buildings full of books. They give kids a quiet place to study. They host free events. They offer computers and internet for people without access. They are open to everyone, no matter their income. Cities should fund more libraries, not fewer. Libraries change lives — and we need them now more than ever.",
+      "questions": [
+        {"id":"ap-21","question":"What is the author's purpose?","choices":["Entertain","Persuade cities to fund more libraries","Inform","Describe a library"],"answer":1,"explanation":"\"Cities should fund more libraries\" = persuade.","wrongExplanations":{"0":"No story.","2":"Has facts but is taking a side.","3":"PARTIAL — passage describes but argues."}},
+        {"id":"ap-22","question":"Which is OPINION?","choices":["Libraries host free events","Libraries are open to everyone","Libraries change lives","Libraries have computers"],"answer":2,"explanation":"\"Change lives\" is judgment.","wrongExplanations":{"0":"Fact — verifiable.","1":"Fact.","3":"Fact."}}
+      ]
+    },
+    {
+      "id": "ap-p13",
+      "title": "The Story of Pluto",
+      "text": "When Pluto was discovered in 1930, it was called the ninth planet. Children memorized the order of nine planets in school. But in 2006, scientists changed Pluto's status. They decided it was a 'dwarf planet' instead. The reason: Pluto is much smaller than the other planets, and it shares its orbit with other large objects. Some scientists still argue about this decision today.",
+      "questions": [
+        {"id":"ap-23","question":"What is the author's purpose?","choices":["Persuade Pluto should be a planet","Inform about Pluto's history","Entertain","Argue against scientists"],"answer":1,"explanation":"Tells the story factually, no side taken.","wrongExplanations":{"0":"Author doesn't push for change.","2":"No story.","3":"OPPOSITE — author just notes scientists argue."}}
+      ]
+    },
+    {
+      "id": "ap-p14",
+      "title": "Why You Should Read More",
+      "text": "Reading every day will change your life. It builds vocabulary. It improves focus. It makes you a better writer. Studies show that students who read just 20 minutes a day score significantly higher on tests. So put down the phone, pick up a book, and read! You'll be glad you did.",
+      "questions": [
+        {"id":"ap-24","question":"What is the author's purpose?","choices":["Inform about reading","Persuade readers to read more","Entertain","Describe a book"],"answer":1,"explanation":"\"Pick up a book\" = call to action.","wrongExplanations":{"0":"Has facts but pushes action.","2":"No story.","3":"No description."}},
+        {"id":"ap-25","question":"Which is OPINION?","choices":["20 minutes of reading raises scores","Reading builds vocabulary","Reading every day will change your life","Studies have been done"],"answer":2,"explanation":"\"Will change your life\" = judgment/promise.","wrongExplanations":{"0":"Fact — research-based.","1":"Fact — research-based.","3":"Fact."}}
+      ]
+    },
+    {
+      "id": "ap-p15",
+      "title": "How Hurricanes Form",
+      "text": "Hurricanes form over warm ocean water. As warm air rises, cooler air rushes in to take its place. This creates a spinning system of clouds and wind. When wind speeds reach 74 miles per hour, the storm is officially a hurricane. The eye, in the center, is calm — but the eye wall around it has the strongest winds.",
+      "questions": [
+        {"id":"ap-26","question":"What is the author's purpose?","choices":["Inform about hurricane formation","Entertain","Persuade","Describe a beach"],"answer":0,"explanation":"Pure facts about formation.","wrongExplanations":{"1":"No story.","2":"No call to action.","3":"OFF-TOPIC."}}
+      ]
+    },
+    {
+      "id": "ap-p16",
+      "title": "Tablets Don't Belong in Classrooms",
+      "text": "Tablets are everywhere in schools today. Some say they're the future. But tablets distract students. Kids click around to games when they should be working. Tablets break and need expensive repairs. They reduce face-to-face interaction. We've replaced books with screens — and we shouldn't have. Bring back books in classrooms.",
+      "questions": [
+        {"id":"ap-27","question":"What is the author's purpose?","choices":["Inform about tablets","Persuade against tablets in classrooms","Entertain","Describe tablet features"],"answer":1,"explanation":"\"We shouldn't have\" + \"Bring back books\" = persuade against.","wrongExplanations":{"0":"Has facts but takes a side.","2":"No story.","3":"No description."}},
+        {"id":"ap-28","question":"Which is OPINION?","choices":["Tablets distract students","Tablets break sometimes","Tablets are everywhere in schools","Some say they're the future"],"answer":0,"explanation":"\"Distract\" is the author's view (others would disagree).","wrongExplanations":{"1":"Fact.","2":"Fact.","3":"Fact — others say this."}}
+      ]
+    },
+    {
+      "id": "ap-p17",
+      "title": "Whales Sing",
+      "text": "Whales communicate using sound. Some whale songs travel for hundreds of miles underwater. Humpback whales, in particular, sing complex melodies that change over time. Different groups of humpbacks sing different songs, and these songs evolve as the whales 'borrow' phrases from each other.",
+      "questions": [
+        {"id":"ap-29","question":"What is the author's purpose?","choices":["Inform about whale communication","Entertain with whale songs","Persuade","Describe a single whale"],"answer":0,"explanation":"Facts about whale communication.","wrongExplanations":{"1":"No story.","2":"No call to action.","3":"No specific whale."}}
+      ]
+    },
+    {
+      "id": "ap-p18",
+      "title": "Phones in Schools",
+      "text": "Schools should allow phones in class. Phones help students look up answers when they're stuck. They let parents reach students in emergencies. Banning phones treats students like they can't be trusted. Today's kids have grown up with phones — schools should adapt, not fight a losing battle.",
+      "questions": [
+        {"id":"ap-30","question":"What is the author's purpose?","choices":["Inform about phones","Persuade schools to allow phones","Entertain","Describe a phone"],"answer":1,"explanation":"\"Schools should allow\" = persuade.","wrongExplanations":{"0":"Takes a side.","2":"No story.","3":"No description."}}
+      ]
+    }
+  ]
+}
