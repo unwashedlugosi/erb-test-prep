@@ -7,7 +7,6 @@ import {
   loadTopicQuestions, loadMixedChunk, loadMixedManifest,
 } from './content';
 import { MODULES } from './test-smarts';
-import { ShellGame } from './components/ShellGame';
 import { launchSpaceInvaders } from './space-invaders';
 import './App.css';
 
@@ -127,9 +126,7 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [progress, setProgress] = useState(loadProgress);
   const [session, setSession] = useState(loadSession);
-  const [showShellGame, setShowShellGame] = useState(false);
   const [streak, setStreak] = useState(0);
-  const [shellThreshold, setShellThreshold] = useState(10);
   const lastSITriggerRef = useRef(0);
   const [xpFloat, setXpFloat] = useState(null);
   const [levelUp, setLevelUp] = useState(null);
@@ -322,15 +319,8 @@ export default function App() {
     addXP(xp);
     sfxCorrect();
 
-    // Shell game at 10, 15, 20...
-    if (newStreak >= shellThreshold && newStreak < SI_THRESHOLD) {
-      setShowShellGame(true);
-      setShellThreshold(prev => prev + 5);
-      // Don't reset streak — let it keep building toward Space Invaders
-    }
-
-    // Space Invaders every 15 in a row (15, 30, 45...)
-    if (newStreak >= SI_THRESHOLD && newStreak !== lastSITriggerRef.current && newStreak % SI_THRESHOLD === 0) {
+    // Space Invaders ONLY — at every 15 in a row (15, 30, 45...)
+    if (newStreak > 0 && newStreak % SI_THRESHOLD === 0 && newStreak !== lastSITriggerRef.current) {
       lastSITriggerRef.current = newStreak;
       const label = `${newStreak}-IN-A-ROW!`;
       launchSpaceInvaders(() => {}, label, 'max');
@@ -342,6 +332,7 @@ export default function App() {
   function handleWrongAnswer() {
     addXP(XP.WRONG);
     sfxWrong();
+    lastSITriggerRef.current = 0; // reset so next 15-streak fires SI again
     return 0;
   }
 
@@ -349,7 +340,6 @@ export default function App() {
     screen, setScreen, progress, session, streak, setStreak,
     addXP, completeModule, markTopicStarted, markTopicCompleted, markMixedSetCompleted,
     logAnswer, handleCorrectAnswer, handleWrongAnswer, sessionSeconds,
-    showShellGame, setShowShellGame,
   };
 
   return (
@@ -366,12 +356,6 @@ export default function App() {
               <div className="level-up-text">LEVEL UP!</div>
               <div className="level-up-name">{levelUp.name}</div>
             </div>
-          </div>
-        )}
-
-        {showShellGame && (
-          <div className="game-overlay">
-            <ShellGame onComplete={() => setShowShellGame(false)} />
           </div>
         )}
 
