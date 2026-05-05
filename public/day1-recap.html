@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f1a">
+<title>ERB Day 1 Recap</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #0b0f1a;
+    color: #e5e7eb;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 18px 40px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 6px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub { color: #9ca3af; font-size: 14px; margin: 0; }
+
+  .progress-bar {
+    height: 6px; background: #1f2937; border-radius: 3px;
+    margin: 18px 0 24px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    transition: width .35s ease;
+  }
+  .progress-text { color: #6b7280; font-size: 12px; text-align: center; margin: -16px 0 18px; }
+
+  .card {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 16px;
+    padding: 22px 20px;
+    margin-bottom: 16px;
+  }
+  .label { color: #9ca3af; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 10px; }
+  .question {
+    font-size: 17px;
+    line-height: 1.45;
+    margin: 0 0 14px;
+    color: #f3f4f6;
+  }
+  .example {
+    background: #0b1220;
+    border-left: 3px solid #6366f1;
+    padding: 14px 16px;
+    border-radius: 0 10px 10px 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #cbd5e1;
+    white-space: pre-wrap;
+    margin-bottom: 18px;
+  }
+  .example .choices { color: #94a3b8; margin-top: 8px; font-size: 14px; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%;
+    padding: 16px;
+    background: #1f2937;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: #f3f4f6;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .15s, border-color .15s, transform .1s;
+    min-height: 52px;
+  }
+  .opt:active { transform: scale(0.98); }
+  .opt.yes { border-color: rgba(34,197,94,0.3); }
+  .opt.yes:hover, .opt.yes:active { background: rgba(34,197,94,0.18); border-color: #22c55e; }
+  .opt.no { border-color: rgba(239,68,68,0.3); }
+  .opt.no:hover, .opt.no:active { background: rgba(239,68,68,0.18); border-color: #ef4444; }
+  .opt.maybe { border-color: rgba(245,158,11,0.3); }
+  .opt.maybe:hover, .opt.maybe:active { background: rgba(245,158,11,0.18); border-color: #f59e0b; }
+
+  .nav { display: flex; justify-content: space-between; margin-top: 14px; }
+  .back-btn {
+    background: none; border: none; color: #6b7280; font-size: 14px;
+    cursor: pointer; padding: 8px 12px;
+  }
+  .back-btn:hover { color: #9ca3af; }
+
+  /* Intro / Outro */
+  .intro, .results {
+    text-align: center;
+  }
+  .start-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  }
+  .start-btn:active { transform: scale(0.98); }
+
+  .results h2 { font-size: 22px; margin: 6px 0 18px; color: #f3f4f6; }
+  .summary-section {
+    text-align: left;
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 14px;
+    padding: 18px 18px 14px;
+    margin-bottom: 14px;
+  }
+  .summary-section h3 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+    color: #9ca3af; margin: 0 0 12px;
+  }
+  .subtest {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid #1f2937;
+  }
+  .subtest:last-child { border-bottom: none; }
+  .subtest-name { font-size: 15px; color: #e5e7eb; }
+  .subtest-status {
+    font-size: 13px; font-weight: 600;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .status-done { background: rgba(34,197,94,0.18); color: #4ade80; }
+  .status-partial { background: rgba(245,158,11,0.18); color: #fbbf24; }
+  .status-todo { background: rgba(99,102,241,0.18); color: #a5b4fc; }
+
+  .recommendation {
+    text-align: left;
+    background: #0b1220;
+    border-left: 3px solid #8b5cf6;
+    padding: 16px 18px;
+    border-radius: 0 12px 12px 0;
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .recommendation strong { color: #f3f4f6; }
+
+  .restart-btn {
+    background: #1f2937; border: none; color: #9ca3af;
+    padding: 12px 22px; border-radius: 10px;
+    font-size: 14px; cursor: pointer; margin-top: 8px;
+  }
+
+  @media (min-width: 600px) {
+    .options { flex-direction: row; }
+    .opt { flex: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ERB Day 1 Recap</h1>
+    <p class="sub">Help us figure out what you took today, Max</p>
+  </header>
+
+  <div id="app"></div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    id: 'analogies',
+    subtest: 'verbal',
+    label: 'Word puzzles',
+    question: 'Did you see any questions like this today?',
+    example: 'PUPPY : DOG :: KITTEN : ___\n(a) cat  (b) mouse  (c) tail  (d) water',
+  },
+  {
+    id: 'categorization',
+    subtest: 'verbal',
+    label: 'Odd-one-out',
+    question: 'Did you see any "which one doesn\'t belong" questions?',
+    example: 'Which does NOT belong?\napple, banana, orange, carrot',
+  },
+  {
+    id: 'logic',
+    subtest: 'verbal',
+    label: 'Logic / "must be true"',
+    question: 'Did you see questions that gave you facts and asked what must be true?',
+    example: 'All cats have whiskers. Mittens is a cat.\nTherefore: ___\n(a) Mittens has whiskers\n(b) All cats are named Mittens',
+  },
+  {
+    id: 'vocab-single',
+    subtest: 'vocab',
+    label: 'Fill in the blank (one word)',
+    question: 'Did you fill in a blank in a sentence with the right word?',
+    example: 'After running a long race, Maya was very ___.\n(a) hungry  (b) tired  (c) lucky  (d) tall',
+  },
+  {
+    id: 'vocab-two',
+    subtest: 'vocab',
+    label: 'Fill in the blank (two words)',
+    question: 'Did you see fill-in-the-blank questions with TWO blanks in one sentence?',
+    example: 'Although the soup looked ___, it tasted ___.\n(a) good ... terrible  (b) hot ... cold',
+  },
+  {
+    id: 'reading',
+    subtest: 'reading',
+    label: 'Long stories with questions',
+    question: 'Did you read any long stories or passages and answer questions about them?',
+    example: '[A long paragraph about whales...]\n\nWhat is the main idea of this passage?',
+  },
+  {
+    id: 'grammar',
+    subtest: 'writing-mechanics',
+    label: 'Grammar / pick the right word',
+    question: 'Did you see questions about picking the right grammar word?',
+    example: 'Sarah and ___ went to the movies.\n(a) me  (b) I  (c) myself  (d) her',
+  },
+  {
+    id: 'topic-sentence',
+    subtest: 'writing-concepts',
+    label: 'Best topic sentence / supporting detail',
+    question: 'Did you see questions about which sentence belongs in a paragraph?',
+    example: 'Which is the BEST topic sentence for a paragraph about why students should read more?',
+  },
+  {
+    id: 'sentence-order',
+    subtest: 'writing-concepts',
+    label: 'Put sentences in order',
+    question: 'Did you see questions where you had to put sentences in the right order?',
+    example: 'Put these in chronological order:\n1. Cake eaten\n2. Mom mixed batter\n3. Cake baked\n4. Mom bought ingredients',
+  },
+  {
+    id: 'column-comparison',
+    subtest: 'quant',
+    label: 'Two columns to compare',
+    question: 'Did you see questions with TWO COLUMNS — Column A and Column B — and you had to pick which is bigger?',
+    example: 'Column A: 25% of 80\nColumn B: 80% of 25\n(a) A is greater  (b) B is greater  (c) Equal  (d) Cannot tell',
+  },
+  {
+    id: 'patterns',
+    subtest: 'quant',
+    label: 'Number patterns',
+    question: 'Did you see questions about number patterns — what number comes next?',
+    example: 'What comes next?\n2, 5, 8, 11, ___',
+  },
+  {
+    id: 'fractions',
+    subtest: 'math',
+    label: 'Fractions',
+    question: 'Did you see fraction problems?',
+    example: '1/2 + 1/4 = ?',
+  },
+  {
+    id: 'word-problems',
+    subtest: 'math',
+    label: 'Word problems',
+    question: 'Did you see math word problems with people, money, or things?',
+    example: 'Sarah has 15 apples. Tom has 9. How many MORE does Sarah have?',
+  },
+  {
+    id: 'geometry',
+    subtest: 'math',
+    label: 'Shapes / area / perimeter',
+    question: 'Did you see questions about shapes, area, perimeter, or angles?',
+    example: 'A rectangle is 6 by 4.\nWhat is the area?',
+  },
+  {
+    id: 'math-finished',
+    subtest: 'meta',
+    label: 'Final question',
+    question: 'On the math part — did it feel finished, or like there\'s more math coming on Day 2 or 3?',
+    customOptions: [
+      { value: 'finished', label: 'Felt finished', cls: 'yes' },
+      { value: 'part1', label: 'More coming', cls: 'maybe' },
+      { value: 'unsure', label: 'Not sure', cls: 'no' },
+    ],
+  },
+];
+
+const SUBTEST_NAMES = {
+  verbal: 'Verbal Reasoning',
+  vocab: 'Vocabulary',
+  reading: 'Reading Comprehension',
+  'writing-mechanics': 'Writing Mechanics',
+  'writing-concepts': 'Writing Concepts',
+  quant: 'Quantitative Reasoning',
+  math: 'Mathematics',
+};
+
+let state = { phase: 'intro', index: 0, answers: {} };
+
+function render() {
+  const app = document.getElementById('app');
+  if (state.phase === 'intro') return renderIntro(app);
+  if (state.phase === 'questions') return renderQuestion(app);
+  if (state.phase === 'results') return renderResults(app);
+}
+
+function renderIntro(app) {
+  app.innerHTML = `
+    <div class="card intro">
+      <p class="question">I'm going to show you 15 example questions.</p>
+      <p class="question" style="color:#cbd5e1; font-size:15px;">For each one, just tell me: did you see anything like that today?</p>
+      <p class="question" style="color:#9ca3af; font-size:14px;">It's okay to guess "not sure" — this helps Dave figure out what to practice tonight.</p>
+      <button class="start-btn" onclick="start()">Let's go</button>
+    </div>
+  `;
+}
+
+function start() {
+  state.phase = 'questions';
+  state.index = 0;
+  render();
+}
+
+function renderQuestion(app) {
+  const q = QUESTIONS[state.index];
+  const total = QUESTIONS.length;
+  const pct = ((state.index) / total) * 100;
+  const opts = q.customOptions || [
+    { value: 'yes', label: 'Yes!', cls: 'yes' },
+    { value: 'no', label: 'Nope', cls: 'no' },
+    { value: 'maybe', label: 'Not sure', cls: 'maybe' },
+  ];
+
+  app.innerHTML = `
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="progress-text">${state.index + 1} of ${total}</div>
+    <div class="card">
+      <p class="label">${q.label}</p>
+      <p class="question">${q.question}</p>
+      ${q.example ? `<div class="example">${q.example}</div>` : ''}
+      <div class="options">
+        ${opts.map(o => `<button class="opt ${o.cls}" onclick="answer('${o.value}')">${o.label}</button>`).join('')}
+      </div>
+      ${state.index > 0 ? `<div class="nav"><button class="back-btn" onclick="back()">← Back</button></div>` : ''}
+    </div>
+  `;
+}
+
+function answer(value) {
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = value;
+  if (state.index < QUESTIONS.length - 1) {
+    state.index++;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    state.phase = 'results';
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function back() {
+  if (state.index > 0) {
+    state.index--;
+    render();
+  }
+}
+
+function restart() {
+  state = { phase: 'intro', index: 0, answers: {} };
+  render();
+}
+
+function classifySubtest(subtestId) {
+  const qs = QUESTIONS.filter(q => q.subtest === subtestId);
+  const yes = qs.filter(q => state.answers[q.id] === 'yes').length;
+  const maybe = qs.filter(q => state.answers[q.id] === 'maybe').length;
+  if (yes >= 1) return { status: 'done', label: 'Likely done' };
+  if (maybe >= 1) return { status: 'partial', label: 'Maybe done' };
+  return { status: 'todo', label: 'Probably ahead' };
+}
+
+function renderResults(app) {
+  const subtestIds = ['verbal', 'vocab', 'reading', 'writing-mechanics', 'writing-concepts', 'quant', 'math'];
+  const results = subtestIds.map(id => ({ id, name: SUBTEST_NAMES[id], ...classifySubtest(id) }));
+  const mathFelt = state.answers['math-finished'];
+
+  let recText = '';
+  const done = results.filter(r => r.status === 'done').map(r => r.name);
+  const todo = results.filter(r => r.status === 'todo').map(r => r.name);
+  const maybe = results.filter(r => r.status === 'partial').map(r => r.name);
+
+  if (done.length) recText += `<p><strong>Done today:</strong> ${done.join(', ')}.</p>`;
+  if (maybe.length) recText += `<p><strong>Possibly done:</strong> ${maybe.join(', ')}.</p>`;
+  if (todo.length) recText += `<p><strong>Still ahead (Days 2–3):</strong> ${todo.join(', ')}.</p>`;
+  if (mathFelt === 'part1') recText += `<p><strong>Math note:</strong> Max said it felt unfinished — there may be more math coming.</p>`;
+  if (mathFelt === 'finished') recText += `<p><strong>Math note:</strong> Math felt complete to Max.</p>`;
+
+  app.innerHTML = `
+    <div class="results">
+      <h2>Here's what we got</h2>
+      <div class="summary-section">
+        <h3>Subtest Status</h3>
+        ${results.map(r => `
+          <div class="subtest">
+            <span class="subtest-name">${r.name}</span>
+            <span class="subtest-status status-${r.status}">${r.label}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="recommendation">
+        ${recText}
+      </div>
+      <button class="restart-btn" onclick="restart()">Start over</button>
+    </div>
+  `;
+
+  // Save locally + send to Supabase so Dave/Claude can see it
+  try { localStorage.setItem('erb_day1_answers', JSON.stringify({ ts: Date.now(), answers: state.answers })); } catch {}
+  if (!state.submitted) {
+    state.submitted = true;
+    fetch('https://dhwllgdxpeucldtmzhme.supabase.co/rest/v1/erb_day1_recap', {
+      method: 'POST',
+      headers: {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRod2xsZ2R4cGV1Y2xkdG16aG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMzI2NTMsImV4cCI6MjA4NTgwODY1M30.PmDxpoWXP0zA2sJLgRxAfODH1JcjdFOoRMdnGZwJYLE',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRod2xsZ2R4cGV1Y2xkdG16aG1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMzI2NTMsImV4cCI6MjA4NTgwODY1M30.PmDxpoWXP0zA2sJLgRxAfODH1JcjdFOoRMdnGZwJYLE',
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({ answers: state.answers, user_agent: navigator.userAgent }),
+    }).catch(() => {});
+  }
+}
+
+render();
+</script>
+</body>
+</html>
