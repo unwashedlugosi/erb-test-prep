@@ -12,6 +12,16 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const QUESTIONS_DIR = join(__dirname, '..', 'public', 'questions');
 const MIXED_DIR = join(__dirname, '..', 'public', 'mixed');
 
+// Topics already tested on ERB Day 1 (May 5, 2026) — exclude from Mixed Review
+// per Max's Day 1 Recap survey + verbal confirmation.
+// Verbal Reasoning subtest: analogies, categorization, logic
+// Reading Comprehension subtest: main-idea, inference, authors-purpose
+// Quantitative Reasoning kept IN (Max says he didn't take it despite survey).
+const EXCLUDED_TOPICS = new Set([
+  'analogies', 'categorization', 'logic',
+  'main-idea', 'inference', 'authors-purpose',
+]);
+
 // Deterministic LCG random for stable rebuilds
 function lcg(seed) {
   let s = seed;
@@ -27,6 +37,11 @@ async function main() {
     const topicId = data.id;
     const topicName = data.name;
     const sectionId = data.sectionId;
+
+    if (EXCLUDED_TOPICS.has(topicId)) {
+      console.log(`  Skipping ${topicId} (already tested on Day 1)`);
+      continue;
+    }
 
     // Practice questions (real difficulty, not warmups, not lessons)
     const questions = data.questions || [];
@@ -64,8 +79,8 @@ async function main() {
   const rand = lcg(42);
   const shuffled = [...allQuestions].sort(() => rand() - 0.5);
 
-  // Chunk into groups of 100
-  const CHUNK_SIZE = 100;
+  // Chunk into groups of 50 (Day-2/3 prep — shorter sets, more sense of progress)
+  const CHUNK_SIZE = 50;
   const chunks = [];
   for (let i = 0; i < shuffled.length; i += CHUNK_SIZE) {
     chunks.push(shuffled.slice(i, i + CHUNK_SIZE));

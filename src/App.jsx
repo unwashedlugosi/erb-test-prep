@@ -119,7 +119,7 @@ const AppContext = createContext(null);
 function useApp() { return useContext(AppContext); }
 
 const SET_SIZE = 50;
-const CHUNK_SIZE = 100;
+const CHUNK_SIZE = 50;
 const SI_THRESHOLD = 15; // Space Invaders triggers every 15-streak
 
 export default function App() {
@@ -962,8 +962,13 @@ function MixedReviewScreen() {
       .then(m => {
         setManifest(m);
         // Determine which chunk we should be on based on mixedTotalAnswered
-        const startingChunk = Math.floor((progress.mixedTotalAnswered || 0) / CHUNK_SIZE) + 1;
-        const startingPos = (progress.mixedTotalAnswered || 0) % CHUNK_SIZE;
+        let startingChunk = Math.floor((progress.mixedTotalAnswered || 0) / CHUNK_SIZE) + 1;
+        let startingPos = (progress.mixedTotalAnswered || 0) % CHUNK_SIZE;
+        // Guard: if pool was rebuilt smaller than prior position, restart from chunk 1
+        if (startingChunk > m.totalChunks) {
+          startingChunk = 1;
+          startingPos = 0;
+        }
         setChunkIndex(startingChunk);
         setPosInChunk(startingPos);
       })
