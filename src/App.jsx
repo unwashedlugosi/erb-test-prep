@@ -1183,6 +1183,15 @@ function MixedReviewScreen() {
     ? `${wrongExp}\n\n→ Correct: ${currentQ.explanation}`
     : (currentQ ? currentQ.explanation : '');
 
+  // Wrong-answer refresher: pull a quick "the move" or trap reminder from the topic's lesson
+  const isWrong = selected !== null && currentQ && selected !== currentQ.answer;
+  const topicMeta = isWrong ? getTopicMeta(currentQ.topicId) : null;
+  const refresherSection = topicMeta && topicMeta.lesson && topicMeta.lesson.sections
+    ? topicMeta.lesson.sections.find(s => /move|trick|step/i.test(s.heading))
+      || topicMeta.lesson.sections.find(s => /trap/i.test(s.heading))
+      || topicMeta.lesson.sections[0]
+    : null;
+
   return (
     <div className="screen practice-screen">
       <div className="screen-header">
@@ -1256,6 +1265,16 @@ function MixedReviewScreen() {
           <div className={`explanation ${selected === currentQ.answer ? 'correct' : 'wrong'}`}>
             <div className="explanation-icon">{selected === currentQ.answer ? '✓' : '✗'}</div>
             <p style={{ whiteSpace: 'pre-wrap' }}>{explanationToShow}</p>
+            {isWrong && refresherSection && (
+              <div className="refresher-card">
+                <div className="refresher-label">📘 Quick refresher · {currentQ.topicName}</div>
+                <div className="refresher-heading">{refresherSection.heading}</div>
+                <p className="refresher-body" style={{ whiteSpace: 'pre-wrap' }}>{refresherSection.body}</p>
+                {refresherSection.example && (
+                  <div className="refresher-example" style={{ whiteSpace: 'pre-wrap' }}>{refresherSection.example}</div>
+                )}
+              </div>
+            )}
             <button className="primary-btn" onClick={nextQuestion}>
               {setPos + 1 >= SET_SIZE ? 'Finish Set' : 'Next Question'}
             </button>

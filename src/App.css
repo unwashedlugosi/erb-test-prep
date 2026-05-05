@@ -767,6 +767,45 @@ body {
   width: 100%;
 }
 
+/* ── Wrong-answer refresher card ── */
+.refresher-card {
+  background: rgba(99, 102, 241, 0.08);
+  border-left: 3px solid #6366f1;
+  border-radius: 0 10px 10px 0;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+.refresher-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #a5b4fc;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.refresher-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.refresher-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+.refresher-example {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-dim);
+  background: rgba(0,0,0,0.2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-style: italic;
+}
+
 /* ── Streak ── */
 .streak-display {
   position: fixed;

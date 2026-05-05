@@ -22,6 +22,22 @@ const EXCLUDED_TOPICS = new Set([
   'main-idea', 'inference', 'authors-purpose',
 ]);
 
+// Soft weighting toward Max's weakest topics (per his erb_answers stats as of May 5).
+// Multipliers above 1 cause that topic's questions to appear that many times in the pool.
+// Stronger topics (>85% accuracy) stay at 1x.
+const TOPIC_WEIGHTS = {
+  'word-problems':     2.0,  // 25% — weakest
+  'column-comparison': 2.0,  // 38% — weak + unfamiliar format
+  'fractions':         1.5,  // 57%
+  'patterns':          1.25, // 68%
+  'two-blank':         1.25, // 67% (small sample)
+  'single-blank':      1.0,  // 76%
+  'grammar-usage':     1.0,  // 90%
+  'sentence-ordering': 1.0,  // 90%
+  'topic-supporting':  1.0,  // 100%
+  'geometry':          1.0,  // no data — neutral
+};
+
 // Deterministic LCG random for stable rebuilds
 function lcg(seed) {
   let s = seed;
@@ -43,19 +59,41 @@ async function main() {
       continue;
     }
 
+    const weight = TOPIC_WEIGHTS[topicId] ?? 1.0;
+
     // Practice questions (real difficulty, not warmups, not lessons)
     const questions = data.questions || [];
-    for (const q of questions) {
-      allQuestions.push({
-        ...q,
-        topicId, topicName, sectionId,
-        // Reading questions need passage context attached
-        ...(data.passages && q.passageId ? {
-          passageText: (data.passages.find(p => p.id === q.passageId) || {}).text,
-          passageTitle: (data.passages.find(p => p.id === q.passageId) || {}).title,
-        } : {}),
-      });
+    const reps = Math.max(1, Math.round(weight * 1)); // integer multiplier (1, 1, 2 for 1.0/1.25/1.5/2.0)
+    const fractional = weight - Math.floor(weight); // .25 / .5 → partial extra pass
+    for (let r = 0; r < Math.floor(weight); r++) {
+      for (const q of questions) {
+        allQuestions.push({
+          ...q,
+          topicId, topicName, sectionId,
+          ...(data.passages && q.passageId ? {
+            passageText: (data.passages.find(p => p.id === q.passageId) || {}).text,
+            passageTitle: (data.passages.find(p => p.id === q.passageId) || {}).title,
+          } : {}),
+        });
+      }
     }
+    if (fractional > 0) {
+      const extraCount = Math.round(questions.length * fractional);
+      // deterministic: take first extraCount after a topic-seeded shuffle
+      const topicRand = lcg(topicId.split('').reduce((a, c) => a + c.charCodeAt(0), 0));
+      const sortedExtras = [...questions].sort(() => topicRand() - 0.5).slice(0, extraCount);
+      for (const q of sortedExtras) {
+        allQuestions.push({
+          ...q,
+          topicId, topicName, sectionId,
+          ...(data.passages && q.passageId ? {
+            passageText: (data.passages.find(p => p.id === q.passageId) || {}).text,
+            passageTitle: (data.passages.find(p => p.id === q.passageId) || {}).title,
+          } : {}),
+        });
+      }
+    }
+    if (weight !== 1.0) console.log(`  ${topicId}: ${questions.length} questions × ${weight}x → contributing ~${Math.round(questions.length * weight)}`);
 
     // Reading topic: questions live inside passages array
     if (data.passages) {
