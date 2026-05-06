@@ -12,30 +12,28 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const QUESTIONS_DIR = join(__dirname, '..', 'public', 'questions');
 const MIXED_DIR = join(__dirname, '..', 'public', 'mixed');
 
-// Topics already tested on ERB Day 1 (May 5, 2026) — exclude from Mixed Review
-// per Max's Day 1 Recap survey + verbal confirmation.
-// Verbal Reasoning subtest: analogies, categorization, logic
-// Reading Comprehension subtest: main-idea, inference, authors-purpose
-// Quantitative Reasoning kept IN (Max says he didn't take it despite survey).
+// Topics already tested — exclude from Mixed Review.
+// Day 1 (May 5): Verbal Reasoning + Reading Comprehension
+// Day 2 (May 6): Vocabulary + Quantitative Reasoning
+// Remaining for Day 3 prep (May 7): Mathematics, Writing Mechanics, Writing Concepts
 const EXCLUDED_TOPICS = new Set([
+  // Day 1
   'analogies', 'categorization', 'logic',
   'main-idea', 'inference', 'authors-purpose',
+  // Day 2
+  'single-blank', 'two-blank',
+  'column-comparison', 'patterns',
 ]);
 
-// Soft weighting toward Max's weakest topics (per his erb_answers stats as of May 5).
+// Soft weighting toward Max's weakest Day 3 topics (per his erb_answers stats as of May 6).
 // Multipliers above 1 cause that topic's questions to appear that many times in the pool.
-// Stronger topics (>85% accuracy) stay at 1x.
 const TOPIC_WEIGHTS = {
-  'word-problems':     2.0,  // 25% — weakest
-  'column-comparison': 2.0,  // 38% — weak + unfamiliar format
-  'fractions':         1.5,  // 57%
-  'patterns':          1.25, // 68%
-  'two-blank':         1.25, // 67% (small sample)
-  'single-blank':      1.0,  // 76%
+  'geometry':          2.0,  // 31% — weakest of Day 3 topics
+  'word-problems':     1.5,  // 60%
+  'fractions':         1.25, // 77%
   'grammar-usage':     1.0,  // 90%
   'sentence-ordering': 1.0,  // 90%
-  'topic-supporting':  1.0,  // 100%
-  'geometry':          1.0,  // no data — neutral
+  'topic-supporting':  1.0,  // 98%
 };
 
 // Deterministic LCG random for stable rebuilds
